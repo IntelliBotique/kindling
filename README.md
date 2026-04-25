@@ -8,7 +8,7 @@ This repository contains the protocol specification, the JSON schemas, reference
 
 The first reference implementation lives inside [Mycelial](https://mycelial.help), launching later this year. Other implementations are encouraged.
 
-If you have ten minutes, read the [launch essay](https://kindling.dev/launch). If you have ninety seconds, keep reading.
+If you have ten minutes, read the [launch essay](docs/LAUNCH_ESSAY.md). If you have ninety seconds, keep reading.
 
 ---
 
@@ -95,7 +95,7 @@ Kindling is two stacked open standards.
 
 **Spam filtering is a three-layer model:** identity-based gating, per-profile preferences, and shared block lists.
 
-The full spec is at [`spec/SPEC.md`](spec/SPEC.md). The framework essay (the longer narrative version) is at [kindling.dev/framework](https://kindling.dev/framework).
+The full spec is at [`spec/SPEC.md`](spec/SPEC.md). The framework essay (the longer narrative version) is at [`docs/FRAMEWORK.md`](docs/FRAMEWORK.md).
 
 ---
 
@@ -149,9 +149,10 @@ The fire starts here.
 
 ## Links
 
-- **Site:** [kindling.dev](https://kindling.dev)
-- **Public Pool registry:** [registry.kindling.dev](https://registry.kindling.dev)
-- **Launch essay:** [kindling.dev/launch](https://kindling.dev/launch)
+- **Launch essay:** [`docs/LAUNCH_ESSAY.md`](docs/LAUNCH_ESSAY.md)
+- **Framework essay:** [`docs/FRAMEWORK.md`](docs/FRAMEWORK.md)
 - **First reference implementation (Mycelial):** [mycelial.help](https://mycelial.help)
-- **Maintainer contact:** maintainers@kindling.dev
-- **Code of Conduct concerns:** conduct@kindling.dev
+- **Maintainer contact:** `maintainers@kindling.dev`
+- **Code of Conduct concerns:** `conduct@kindling.dev`
+
+The public-facing site (`kindling.tranquiltech.com`) and the public Pool registry (`registry.kindling.tranquiltech.com`) come online with the v0.1.1 public release; the README will link them once they resolve.

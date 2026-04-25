@@ -4,7 +4,7 @@
 **Status:** Stable for v0.1. Changes before v0.2 will land as opt-in additions or clearly-marked deprecations.
 **License:** CC BY 4.0 (this document). Apache 2.0 (reference tooling).
 
-This document is the canonical, numbered specification of the Kindling protocol. It is derived from the longer-form framework essay (`docs/FRAMEWORK.md` in drafts, published at kindling.dev/framework) and exists so implementers have a stable reference for each requirement. Section numbers are stable across v0.1.x point releases and will only change at a major version bump. RFCs reference sections by number.
+This document is the canonical, numbered specification of the Kindling protocol. It is derived from the longer-form framework essay at [`docs/FRAMEWORK.md`](../docs/FRAMEWORK.md) and exists so implementers have a stable reference for each requirement. Section numbers are stable across v0.1.x point releases and will only change at a major version bump. RFCs reference sections by number.
 
 Keywords "MUST", "SHOULD", "MAY", "MUST NOT", "SHOULD NOT", "REQUIRED", "RECOMMENDED", and "OPTIONAL" are interpreted as in RFC 2119.
 
@@ -331,4 +331,4 @@ Deprecations between minor versions MUST be marked in the relevant schema and li
 
 - IndieWeb h-card specification — https://microformats.org/wiki/h-card
 - RFC 2119 — Key words for use in RFCs to Indicate Requirement Levels
-- Framework essay (longer narrative form) — `docs/FRAMEWORK.md` in source; published at kindling.dev/framework
+- Framework essay (longer narrative form) — [`docs/FRAMEWORK.md`](../docs/FRAMEWORK.md)
