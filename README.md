@@ -8,7 +8,7 @@ This repository contains the protocol specification, the JSON schemas, reference
 
 The first reference implementation lives inside [Mycelial](https://mycelial.help), launching later this year. Other implementations are encouraged.
 
-If you have ten minutes, read the [launch essay](https://kindling.dev/launch). If you have ninety seconds, keep reading.
+If you have ten minutes, read the [launch essay](docs/LAUNCH_ESSAY.md). If you have ninety seconds, keep reading.
 
 ---
 
@@ -95,18 +95,20 @@ Kindling is two stacked open standards.
 
 **Spam filtering is a three-layer model:** identity-based gating, per-profile preferences, and shared block lists.
 
-The full spec is at [`spec/SPEC.md`](spec/SPEC.md). The framework essay (the longer narrative version) is at [kindling.dev/framework](https://kindling.dev/framework).
+The full spec is at [`spec/SPEC.md`](spec/SPEC.md). The framework essay (the longer narrative version) is at [`docs/FRAMEWORK.md`](docs/FRAMEWORK.md).
 
 ---
 
 ## Status
 
-- **Framework v0.1** is live as of April 2026.
+- **Framework v0.1** is in pre-launch review, targeting public release as **v0.1.1** in late spring 2026.
 - **Mycelial reference implementation v1** ships late summer 2026.
 - **Spec v0.2** is in draft, targeting a Q4 2026 release.
 - **Working Group governance transition** completes by v1.0.
 
-The spec is **stable for v0.1**. Changes between now and v0.2 will land as opt-in additions or clearly-marked deprecations. Nothing in v0.1 will silently break.
+The spec is **frozen for v0.1.1**: changes during the review window land as patch-level fixes only, and everything published at v0.1.1 will be stable by the same definition that applies to all subsequent v0.1.x point releases. Substantive additions wait for v0.2.
+
+Release notes for each version live in [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
@@ -147,9 +149,10 @@ The fire starts here.
 
 ## Links
 
-- **Site:** [kindling.dev](https://kindling.dev)
-- **Public Pool registry:** [registry.kindling.dev](https://registry.kindling.dev)
-- **Launch essay:** [kindling.dev/launch](https://kindling.dev/launch)
+- **Launch essay:** [`docs/LAUNCH_ESSAY.md`](docs/LAUNCH_ESSAY.md)
+- **Framework essay:** [`docs/FRAMEWORK.md`](docs/FRAMEWORK.md)
 - **First reference implementation (Mycelial):** [mycelial.help](https://mycelial.help)
-- **Maintainer contact:** maintainers@kindling.dev
-- **Code of Conduct concerns:** conduct@kindling.dev
+- **Maintainer contact:** `maintainers@kindling.dev`
+- **Code of Conduct concerns:** `conduct@kindling.dev`
+
+The public-facing site (`kindling.tranquiltech.com`) and the public Pool registry (`registry.kindling.tranquiltech.com`) come online with the v0.1.1 public release; the README will link them once they resolve.

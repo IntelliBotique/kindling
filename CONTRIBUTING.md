@@ -22,9 +22,9 @@ None of these require permission.
 
 **Write an RFC.** Substantive changes to the spec or the protocol go through the RFC process. See "RFC process" below.
 
-**Build an implementation.** Ship a Kindling client, Pool host, or registry. List it on the public registry by submitting your implementation manifest at [registry.kindling.dev/implementations](https://registry.kindling.dev/implementations).
+**Build an implementation.** Ship a Kindling client, Pool host, or registry. Once the public registry is live (with v0.1.1), submit your implementation manifest there to be listed.
 
-**Run a Pool.** Pool curation is the most important and least understood role in the network. There is no application process. Read the Pool curator playbook at [kindling.dev/curators](https://kindling.dev/curators) and start a Pool you care about.
+**Run a Pool.** Pool curation is the most important and least understood role in the network. The early curators are shaping how Pool curation works as a craft; a written curator playbook will be published alongside v0.1.1. In the meantime, if you want to run a Pool, read [`spec/SPEC.md`](spec/SPEC.md) §3 and §5 (Pool layer and consent), look at the manifests under [`examples/pools/`](examples/pools/), and email `maintainers@kindling.dev` — we want to hear from you.
 
 ---
 

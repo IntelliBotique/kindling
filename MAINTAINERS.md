@@ -12,11 +12,9 @@ The Initial Maintainer holds commit rights to the spec, the schemas, the referen
 
 | Name | Role | GitHub | Email | Areas of focus |
 |---|---|---|---|---|
-| **Josh Kessler** | Founder, TranquilTech / Project lead | `@joshkessler` *(placeholder)* | `josh@intellibotique.com` | Spec direction, registry, governance |
-| **[Name 2]** | *Mycelial maintainer* | `@handle` | `email@kindling.dev` | Reference implementation, integration with Mycelial |
-| **[Name 3]** | *Reference tooling lead* | `@handle` | `email@kindling.dev` | Validator, parser, discovery agent, CLI |
+| **Josh Kessler** | Founder, TranquilTech / Project lead | [@IntelliBotique](https://github.com/IntelliBotique) | `josh@intellibotique.com` | Spec direction, registry, governance |
 
-> **Note for Josh:** Confirm or replace the placeholder GitHub handle and add at least one additional initial maintainer beyond yourself before launch. A single-person Initial Maintainer team reads as fragile, and the GOVERNANCE.md specifically refers to "a small named group, not the company as an abstraction." Two to four named people is the right shape for the v0.1 launch.
+Additional Initial Maintainers will be named ahead of the v0.1.1 public release. GOVERNANCE.md describes the role as "a small named group, not the company as an abstraction"; expect two to four named people on the v0.1.1 cut.
 
 ---
 
