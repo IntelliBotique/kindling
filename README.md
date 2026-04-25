@@ -101,12 +101,14 @@ The full spec is at [`spec/SPEC.md`](spec/SPEC.md). The framework essay (the lon
 
 ## Status
 
-- **Framework v0.1** is live as of April 2026.
+- **Framework v0.1** is in pre-launch review, targeting public release as **v0.1.1** in late spring 2026.
 - **Mycelial reference implementation v1** ships late summer 2026.
 - **Spec v0.2** is in draft, targeting a Q4 2026 release.
 - **Working Group governance transition** completes by v1.0.
 
-The spec is **stable for v0.1**. Changes between now and v0.2 will land as opt-in additions or clearly-marked deprecations. Nothing in v0.1 will silently break.
+The spec is **frozen for v0.1.1**: changes during the review window land as patch-level fixes only, and everything published at v0.1.1 will be stable by the same definition that applies to all subsequent v0.1.x point releases. Substantive additions wait for v0.2.
+
+Release notes for each version live in [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
