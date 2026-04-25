@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.1",
+  "pools": [
+    {
+      "manifest_url": "https://example.com/pools/queer-creatives-la.json",
+      "name": "Queer Creatives in LA Who Want More Friends in Their Thirties",
+      "intent_tags": ["friendship", "queer", "creative", "thirties", "los-angeles"],
+      "visibility": "public",
+      "status": "active",
+      "geographic_scope": {
+        "city": "Los Angeles",
+        "region": "California",
+        "country": "United States"
+      },
+      "last_updated": "2026-04-22T09:30:00Z"
+    }
+  ],
+  "operator": {
+    "name": "Mira",
+    "contact": "mira@example.com",
+    "url": "https://example.com"
+  }
+}

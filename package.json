@@ -1,0 +1,48 @@
+{
+  "name": "kindling",
+  "version": "0.1.0",
+  "description": "Kindling: an open protocol for human connection. Reference tooling and public registry.",
+  "license": "Apache-2.0",
+  "author": "TranquilTech",
+  "homepage": "https://kindling.dev",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tranquiltech/kindling.git"
+  },
+  "bin": {
+    "kindling-validate": "./tools/validator/bin/cli.js",
+    "kindling-parse": "./tools/parser/bin/cli.js",
+    "kindling-discover": "./tools/discovery-agent/bin/cli.js",
+    "kindling-handshake": "./tools/handshake/bin/cli.js",
+    "kindling-blocklist": "./tools/blocklist-publisher/bin/cli.js"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "validator": "node tools/validator/bin/cli.js",
+    "parser": "node tools/parser/bin/cli.js",
+    "discover": "node tools/discovery-agent/bin/cli.js",
+    "handshake": "node tools/handshake/bin/cli.js",
+    "blocklist": "node tools/blocklist-publisher/bin/cli.js",
+    "registry": "node registry/server.js"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^11.1.0",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "vitest": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

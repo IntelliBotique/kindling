@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kindling.dev/schemas/pool_manifest.schema.json",
+  "title": "PoolManifest",
+  "description": "A Kindling Pool: a curated list of profile entries plus the metadata that defines its purpose, governance, and consent rules.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "name",
+    "curator",
+    "intent_tags",
+    "visibility",
+    "consent_model",
+    "curator_contact",
+    "charter",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "id": {
+      "type": "string",
+      "description": "Stable identifier for this Pool, typically a slug. Optional; generated from name if omitted."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable Pool name."
+    },
+    "curator": {
+      "type": "array",
+      "minItems": 1,
+      "description": "One or more verified Kindling identities curating this Pool.",
+      "items": {
+        "type": "object",
+        "required": ["identity", "verification_level"],
+        "additionalProperties": false,
+        "properties": {
+          "identity": {
+            "type": "string",
+            "description": "Curator's Kindling identity (email, OAuth-bound identifier, or fingerprint)."
+          },
+          "display_name": { "type": "string" },
+          "verification_level": {
+            "type": "string",
+            "enum": ["email", "oauth", "cryptographic"]
+          },
+          "primary": {
+            "type": "boolean",
+            "default": false,
+            "description": "True for the primary curator. At most one primary."
+          }
+        }
+      }
+    },
+    "intent_tags": {
+      "type": "array",
+      "minItems": 1,
+      "description": "What the Pool is for. Free-form tags; common values: friendship, dating, professional, hiking, polyamorous-dating-la, neurodivergent-friendships.",
+      "items": { "type": "string" }
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "unlisted", "invite-only"]
+    },
+    "consent_model": {
+      "type": "string",
+      "enum": ["universal-opt-in", "vouching-required", "curator-only-adds"],
+      "default": "universal-opt-in"
+    },
+    "curator_contact": {
+      "type": "string",
+      "description": "How a profile owner can reach the curator about removal, complaints, disputes. Typically email or a contact-form URL."
+    },
+    "charter": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Free-text description of what the Pool is for and what it isn't. Required, plain text in v0.1."
+    },
+    "geographic_scope": {
+      "type": "object",
+      "description": "Optional. Used when a Pool is location-specific.",
+      "additionalProperties": false,
+      "properties": {
+        "city": { "type": "string" },
+        "region": { "type": "string" },
+        "country": { "type": "string" },
+        "online": { "type": "boolean" }
+      }
+    },
+    "governance_rules": {
+      "type": "string",
+      "description": "Optional. How co-curators are added, how disputes are handled. Defaults to the protocol-level boilerplate when not specified."
+    },
+    "messaging_preferences": {
+      "type": "object",
+      "description": "Pool-level defaults that apply to all members unless their profile overrides.",
+      "additionalProperties": false,
+      "properties": {
+        "block_list_subscriptions": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" }
+        },
+        "minimum_sender_verification": {
+          "type": "string",
+          "enum": ["unverified", "email", "oauth"]
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "dormant", "archived"],
+      "default": "active",
+      "description": "Pool lifecycle state. Dormant = curator inactive 90+ days; Archived = read-only after failed curator transition."
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "entries": {
+      "type": "array",
+      "description": "The list of profile entries in this Pool.",
+      "items": {
+        "type": "object",
+        "required": ["profile_url", "consent_proof", "verification_level", "added_at"],
+        "additionalProperties": false,
+        "properties": {
+          "profile_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "parsed_profile": {
+            "$ref": "https://kindling.dev/schemas/parsed_profile.schema.json"
+          },
+          "parsed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "consent_proof": {
+            "type": "object",
+            "required": ["handshake_id", "accepted_at"],
+            "additionalProperties": false,
+            "properties": {
+              "handshake_id": { "type": "string" },
+              "accepted_at": { "type": "string", "format": "date-time" },
+              "method": {
+                "type": "string",
+                "enum": ["email-link", "oauth", "curator-vouching", "auto-accept"]
+              }
+            }
+          },
+          "verification_level": {
+            "type": "string",
+            "enum": ["email", "oauth", "curator-vouched", "cryptographic"]
+          },
+          "added_at": { "type": "string", "format": "date-time" },
+          "added_by": {
+            "type": "string",
+            "description": "Curator identity of who added this entry."
+          }
+        }
+      }
+    }
+  }
+}

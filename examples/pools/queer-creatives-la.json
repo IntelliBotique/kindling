@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.1",
+  "id": "queer-creatives-la",
+  "name": "Queer Creatives in LA Who Want More Friends in Their Thirties",
+  "curator": [
+    {
+      "identity": "mira@example.com",
+      "display_name": "Mira",
+      "verification_level": "email",
+      "primary": true
+    }
+  ],
+  "intent_tags": ["friendship", "queer", "creative", "thirties", "los-angeles"],
+  "visibility": "public",
+  "consent_model": "universal-opt-in",
+  "curator_contact": "mira@example.com",
+  "charter": "A Pool for queer creative people in their thirties living in or near Los Angeles who want to expand their friendship circle. Hangouts, coffee, gallery openings, hiking partners, plus-ones for the wedding you don't want to go to alone. Not a dating Pool. We curate carefully and prioritize people who are already showing up for their communities.",
+  "geographic_scope": {
+    "city": "Los Angeles",
+    "region": "California",
+    "country": "United States"
+  },
+  "messaging_preferences": {
+    "minimum_sender_verification": "email"
+  },
+  "status": "active",
+  "created_at": "2026-04-01T16:00:00Z",
+  "updated_at": "2026-04-22T09:30:00Z",
+  "entries": [
+    {
+      "profile_url": "https://sarah.example.com/about",
+      "verification_level": "email",
+      "parsed_profile": {
+        "schema_version": "0.1",
+        "profile_url": "https://sarah.example.com/about",
+        "display_name": "Sarah K.",
+        "pronouns": "she/her",
+        "location": { "city": "Los Angeles", "region": "California" },
+        "photo_hints": ["https://sarah.example.com/photos/sarah-1.jpg"],
+        "intent_tags": ["friendship", "hiking", "movies", "queer"],
+        "about": "Documentary filmmaker, late thirties, queer, two cats. Looking for friendships with people who like long walks, weird movies, and conversations that wander. Also dating-open, primarily for women and non-binary folks.",
+        "contact_methods": [{ "type": "email", "value": "sarah@example.com" }],
+        "verification": { "level": "email", "verified_at": "2026-04-15T18:20:00Z" },
+        "parsed_at": "2026-04-15T18:25:00Z",
+        "parser": "kindling-parser-reference/0.1.0"
+      },
+      "parsed_at": "2026-04-15T18:25:00Z",
+      "consent_proof": {
+        "handshake_id": "f4c1b2d3-7e8a-4b5c-9d1e-2f3a4b5c6d7e",
+        "accepted_at": "2026-04-15T18:22:11Z",
+        "method": "email-link"
+      },
+      "added_at": "2026-04-15T18:22:11Z",
+      "added_by": "mira@example.com"
+    },
+    {
+      "profile_url": "https://reza.notion.site/about-me",
+      "verification_level": "email",
+      "parsed_profile": {
+        "schema_version": "0.1",
+        "profile_url": "https://reza.notion.site/about-me",
+        "display_name": "Reza",
+        "pronouns": "he/him",
+        "location": { "city": "Los Angeles", "region": "California" },
+        "intent_tags": ["friendship", "books", "poetry", "queer", "thirties"],
+        "about": "Poet and nonprofit fundraiser. Thirty-four. Gay, monogamous, not dating. Looking for friendships with people who still read books on paper and don't mind long silences.",
+        "contact_methods": [{ "type": "email", "value": "reza@example.com" }],
+        "verification": { "level": "email", "verified_at": "2026-04-17T11:00:00Z" },
+        "parsed_at": "2026-04-17T11:05:00Z",
+        "parser": "kindling-parser-reference/0.1.0"
+      },
+      "parsed_at": "2026-04-17T11:05:00Z",
+      "consent_proof": {
+        "handshake_id": "a9b8c7d6-5e4f-3a2b-1c0d-9e8f7a6b5c4d",
+        "accepted_at": "2026-04-17T11:05:43Z",
+        "method": "email-link"
+      },
+      "added_at": "2026-04-17T11:05:43Z",
+      "added_by": "mira@example.com"
+    }
+  ]
+}

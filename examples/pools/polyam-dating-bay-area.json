@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1",
+  "id": "polyam-dating-bay-area",
+  "name": "Polyamorous Dating in the Bay Area",
+  "curator": [
+    {
+      "identity": "alex@example.com",
+      "display_name": "Alex Chen",
+      "verification_level": "oauth",
+      "primary": true
+    },
+    {
+      "identity": "danni@example.com",
+      "display_name": "Danni",
+      "verification_level": "email"
+    }
+  ],
+  "intent_tags": ["dating", "polyamorous", "bay-area", "kink-friendly", "conflict-literate"],
+  "visibility": "public",
+  "consent_model": "universal-opt-in",
+  "curator_contact": "polyam-bay-curators@example.com",
+  "charter": "A Pool for polyamorous, kink-friendly, conflict-literate adults in the SF Bay Area looking for romantic and sexual connection. We expect you to be currently practicing ethical non-monogamy and to be willing to communicate about boundaries explicitly. We curate for people who have done the work, not people looking for unicorns. If your profile reads like a Tinder bio with a polyam emoji at the end, we'll politely pass.",
+  "geographic_scope": {
+    "city": "San Francisco Bay Area",
+    "region": "California",
+    "country": "United States"
+  },
+  "messaging_preferences": {
+    "minimum_sender_verification": "email"
+  },
+  "status": "active",
+  "created_at": "2026-03-15T20:00:00Z",
+  "updated_at": "2026-04-22T14:12:00Z",
+  "entries": [
+    {
+      "profile_url": "https://jordan.dev/me",
+      "verification_level": "oauth",
+      "consent_proof": {
+        "handshake_id": "11111111-2222-3333-4444-555555555555",
+        "accepted_at": "2026-03-20T09:11:00Z",
+        "method": "oauth"
+      },
+      "added_at": "2026-03-20T09:11:00Z",
+      "added_by": "alex@example.com"
+    }
+  ]
+}

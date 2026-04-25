@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kindling.dev/schemas/block_list.schema.json",
+  "title": "KindlingBlockList",
+  "description": "A signed shared block list. Implementations subscribe to one or more lists and filter senders / curators / Pools accordingly.",
+  "type": "object",
+  "required": ["schema_version", "list_id", "name", "publisher", "version", "published_at", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "0.1" },
+    "list_id": {
+      "type": "string",
+      "description": "Globally unique identifier for this list, typically a URL-safe slug."
+    },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "publisher": {
+      "type": "object",
+      "required": ["identity", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "identity": { "type": "string" },
+        "name": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonically increasing version. Implementations should pull updates."
+    },
+    "published_at": { "type": "string", "format": "date-time" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target_type", "target_identifier", "reason_category", "added_at"],
+        "additionalProperties": false,
+        "properties": {
+          "target_type": {
+            "type": "string",
+            "enum": ["identity", "profile_url", "pool_url", "curator_identity", "implementation"]
+          },
+          "target_identifier": { "type": "string" },
+          "reason_category": {
+            "type": "string",
+            "enum": ["spam", "harassment", "impersonation", "consent_violation", "scraping", "other"]
+          },
+          "reason_detail": {
+            "type": "string",
+            "description": "Optional human-readable explanation. Avoid PII; this list is public."
+          },
+          "added_at": { "type": "string", "format": "date-time" },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Optional. If present, the entry should be ignored after this date."
+          }
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "description": "Optional cryptographic signature attesting to the list's integrity. Recommended for v0.2 onward.",
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string" },
+        "value": { "type": "string" },
+        "key_url": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

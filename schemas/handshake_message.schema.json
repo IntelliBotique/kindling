@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kindling.dev/schemas/handshake_message.schema.json",
+  "title": "HandshakeMessage",
+  "description": "A consent handshake exchange between a Pool and a profile owner.",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/HandshakeRequest" },
+    { "$ref": "#/$defs/HandshakeResponse" }
+  ],
+  "$defs": {
+    "HandshakeRequest": {
+      "type": "object",
+      "required": ["schema_version", "type", "handshake_id", "pool", "profile_url", "sent_at", "expires_at", "accept_url", "decline_url"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string", "const": "0.1" },
+        "type": { "type": "string", "const": "handshake-request" },
+        "handshake_id": {
+          "type": "string",
+          "description": "Unique identifier for this handshake exchange."
+        },
+        "pool": {
+          "type": "object",
+          "required": ["url", "name", "charter", "curator_identity", "curator_verification", "intent_tags", "visibility"],
+          "additionalProperties": false,
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "name": { "type": "string" },
+            "charter": { "type": "string" },
+            "curator_identity": { "type": "string" },
+            "curator_verification": { "type": "string", "enum": ["email", "oauth", "cryptographic"] },
+            "intent_tags": { "type": "array", "items": { "type": "string" } },
+            "visibility": { "type": "string", "enum": ["public", "unlisted", "invite-only"] }
+          }
+        },
+        "profile_url": { "type": "string", "format": "uri" },
+        "sent_at": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "accept_url": { "type": "string", "format": "uri" },
+        "decline_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "HandshakeResponse": {
+      "type": "object",
+      "required": ["schema_version", "type", "handshake_id", "decision", "responded_at"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "type": "string", "const": "0.1" },
+        "type": { "type": "string", "const": "handshake-response" },
+        "handshake_id": { "type": "string" },
+        "decision": { "type": "string", "enum": ["accept", "decline"] },
+        "responded_at": { "type": "string", "format": "date-time" },
+        "responder_identity": {
+          "type": "string",
+          "description": "Verified identity of the profile owner responding."
+        }
+      }
+    }
+  }
+}

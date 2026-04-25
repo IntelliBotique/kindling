@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kindling.dev/schemas/kindling_message.schema.json",
+  "title": "KindlingMessage",
+  "description": "A native Kindling message envelope. v0.1 transport is structured email under the hood.",
+  "type": "object",
+  "required": ["schema_version", "message_id", "type", "sender", "recipient", "sent_at", "body"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "0.1" },
+    "message_id": {
+      "type": "string",
+      "description": "Globally unique message identifier."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["handshake-request", "handshake-response", "intro", "reply", "withdrawal", "system"]
+    },
+    "in_reply_to": {
+      "type": "string",
+      "description": "If this message is a reply, the message_id it replies to."
+    },
+    "sender": {
+      "type": "object",
+      "required": ["identity", "verification_level"],
+      "additionalProperties": false,
+      "properties": {
+        "identity": { "type": "string" },
+        "display_name": { "type": "string" },
+        "verification_level": {
+          "type": "string",
+          "enum": ["unverified", "email", "oauth", "curator-vouched", "cryptographic"]
+        },
+        "profile_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "recipient": {
+      "type": "object",
+      "required": ["identity"],
+      "additionalProperties": false,
+      "properties": {
+        "identity": { "type": "string" },
+        "profile_url": { "type": "string", "format": "uri" }
+      }
+    },
+    "via_pool": {
+      "type": "object",
+      "description": "If the message was triggered through a Pool, the Pool's reference.",
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "sent_at": { "type": "string", "format": "date-time" },
+    "subject": {
+      "type": "string",
+      "description": "Optional human-facing subject line."
+    },
+    "body": {
+      "type": "object",
+      "required": ["content_type", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "content_type": {
+          "type": "string",
+          "enum": ["text/plain", "text/markdown"]
+        },
+        "content": { "type": "string" }
+      }
+    },
+    "transport": {
+      "type": "object",
+      "description": "Transport-layer metadata. v0.1: email.",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["email"] },
+        "message_headers": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kindling.dev/schemas/parsed_profile.schema.json",
+  "title": "ParsedProfile",
+  "description": "The structured representation of a Kindling profile, produced by parsing a freeform profile URL (with h-card baseline plus AI extraction).",
+  "type": "object",
+  "required": ["profile_url", "display_name", "parsed_at", "schema_version"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "The version of the parsed_profile schema this document conforms to."
+    },
+    "profile_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical source URL the profile was parsed from."
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name as the owner presents themselves."
+    },
+    "pronouns": {
+      "type": "string",
+      "description": "Pronouns the owner uses, free-form (e.g., 'she/her', 'they/them')."
+    },
+    "location": {
+      "type": "object",
+      "description": "Where the owner lives or operates from. All fields optional.",
+      "additionalProperties": false,
+      "properties": {
+        "city": { "type": "string" },
+        "region": { "type": "string" },
+        "country": { "type": "string" },
+        "remote": {
+          "type": "boolean",
+          "description": "True if the owner explicitly identifies as remote / location-independent."
+        },
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 }
+      }
+    },
+    "photo_hints": {
+      "type": "array",
+      "description": "URLs to images on the source page. Kindling does not cache; implementations decide whether to cache locally.",
+      "items": { "type": "string", "format": "uri" }
+    },
+    "intent_tags": {
+      "type": "array",
+      "description": "What the owner is open to (friendship, dating, networking, hiking buddies, co-founders, etc.).",
+      "items": { "type": "string" }
+    },
+    "about": {
+      "type": "string",
+      "description": "Free-text 'about me' compressed from the source page. Plain text only at v0.1."
+    },
+    "contact_methods": {
+      "type": "array",
+      "description": "Declared external contact methods.",
+      "items": {
+        "type": "object",
+        "required": ["type", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["email", "twitter", "bluesky", "mastodon", "instagram", "linkedin", "calendly", "url", "other"]
+          },
+          "value": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "description": "Identity verification level for this profile.",
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["unverified", "email", "oauth", "curator-vouched", "cryptographic"],
+          "description": "The strongest verification this profile holds. 'cryptographic' is reserved for v0.2."
+        },
+        "verified_at": { "type": "string", "format": "date-time" },
+        "verifier": {
+          "type": "string",
+          "description": "For OAuth: the provider (google, apple, etc.). For curator-vouched: the curator's identity."
+        }
+      }
+    },
+    "messaging_preferences": {
+      "type": "object",
+      "description": "Per-profile rules for incoming messages and handshakes.",
+      "additionalProperties": false,
+      "properties": {
+        "accept_from": {
+          "type": "string",
+          "enum": ["anyone", "verified", "shared-pool", "vouched", "none"],
+          "default": "verified"
+        },
+        "minimum_curator_verification": {
+          "type": "string",
+          "enum": ["unverified", "email", "oauth"]
+        },
+        "no_cold_messages": { "type": "boolean", "default": false },
+        "auto_accept_rules": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["intent_tags"],
+            "additionalProperties": false,
+            "properties": {
+              "intent_tags": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" }
+              },
+              "minimum_curator_verification": {
+                "type": "string",
+                "enum": ["email", "oauth"]
+              },
+              "allowed_visibility": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["public", "unlisted"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "kindling_noindex": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, this profile asks not to be included in any Pool. Compliant Pools and crawlers respect this."
+    },
+    "parsed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp of when this parsed_profile was produced."
+    },
+    "parser": {
+      "type": "string",
+      "description": "Identifier of the parser implementation that produced this profile (e.g., 'kindling-parser/0.1.0')."
+    }
+  }
+}
