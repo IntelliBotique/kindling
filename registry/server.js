@@ -90,7 +90,7 @@ function renderLayout(title, body) {
   </header>
   <main>${body}</main>
   <footer>
-    <p>Kindling is an open protocol for human connection. <a href="https://github.com/tranquiltech/kindling">GitHub</a> · <a href="https://kindling.dev">kindling.dev</a></p>
+    <p>Kindling is an open protocol for human connection. <a href="https://github.com/IntelliBotique/kindling">GitHub</a> · <a href="https://kindling.dev">kindling.dev</a></p>
   </footer>
 </body>
 </html>`;

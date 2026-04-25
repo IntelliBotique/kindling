@@ -46,7 +46,7 @@ CODE_OF_CONDUCT.md     Community standards
 ## Quick start (developers)
 
 ```bash
-git clone https://github.com/tranquiltech/kindling.git
+git clone https://github.com/IntelliBotique/kindling.git
 cd kindling
 npm install
 ```
