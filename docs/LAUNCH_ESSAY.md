@@ -1,150 +1,150 @@
 # The Category Nobody Has Fixed, and the Protocol That Might
 
-*Published April 2026 by Josh Kessler, founder of TranquilTech.*
-*Reading time: about 14 minutes.*
+*By Josh Wolf, founder of TranquilTech. Written April 2026; revised September 19, 2026.*
+*Reading time: about 13 minutes.*
 
 ---
 
+## A protocol first
+
+Cross Napster with RSS, have the result born the way Bitcoin was, as a published paper instead of a hosted service, and give it one job: make the dating-app business model beside the point. That is roughly what Kindling is.
+
+Kindling is an open protocol for finding people across self-hosted profiles. The specification is published under permissive licenses, and the source lives on GitHub. What you get is a spec, the JSON schemas underneath it, and a small set of reference tools: a validator, a profile parser, a reference handshake server, a starter discovery agent, a block-list publisher, and the source for a Pool registry. Anyone can run all of it. Nobody has to ask.
+
+I'm publishing a specification before any product because the dating and friendship-discovery categories are broken by the same business model. The workaround people have already invented in public is the right starting point, and what it lacks is a layer of public infrastructure that turns the workaround into something durable. That layer has to be a protocol, owned by nobody, TranquilTech included.
+
+If you've read the Bitcoin paper, the original RSS spec, or the IndieWeb h-card recommendation, you know the genre. The rest of this essay explains what I'm proposing and why.
+
 ## The dating doc
 
-Open Reddit on a Sunday afternoon and search for "dating doc." You will find them everywhere. A 26-year-old in Brooklyn has put twelve hundred words into a Google Doc about who she is and what she's looking for, with three photos, a Spotify link, and her email address at the bottom. A polyamorous couple in Oakland has built a Notion page that reads like a dating profile crossed with a CV. An autistic engineer in Berlin has a Carrd site listing the nineteen things he wants you to know before he agrees to coffee.
+Search Reddit for "date me doc" and you'll find the genre everywhere. A few thousand words in a Google Doc about who someone is and what they want, three photos, a Spotify link, an email address at the bottom. A Notion page that reads like a dating profile crossed with a CV. A Carrd site listing the nineteen things someone wants you to know before coffee.
 
-These documents are not novelties. They are the way a generation of people who have given up on dating apps are actually finding each other now. The friendship versions are even more revealing. There are spreadsheets of women in Los Angeles open to platonic walks, group chats of new parents in Toronto trading babysitter contacts and hangout invitations, Notion pages titled "people I think you should meet" that get passed quietly from one trusted friend to the next.
+These documents are how a lot of people who gave up on dating apps are finding each other now. The friendship versions are more revealing still: spreadsheets of people open to platonic walks in one city, group chats of new parents trading hangout invitations, Notion pages titled "people I think you should meet" passed quietly from one trusted friend to the next.
 
-The behavior already exists. It exists at scale. It exists because the tools that were supposed to do this work are no longer doing the work. And it exists in a form that is so close to a real protocol that you can almost see the shape of what it could be.
+The behavior exists, it's widespread, and it exists because the tools built for this work stopped doing it. It also sits remarkably close to a real protocol. You can almost see the shape.
 
-This essay is about why dating and friendship discovery are both broken in the same way, why the workaround people have invented is the right starting point, and what it would take to turn that workaround into actual public infrastructure. The thing being proposed is called Kindling. It is an open protocol, published today on GitHub. It is one of those rare cases where the right move is to publish a specification before publishing a product.
+## Two categories, one failure
 
-I'll explain what that means, why it matters, and what comes next.
+Dating and friendship discovery look like separate problems. They share a root.
 
-## The two categories that are broken in the same way
+In both, two people benefit when they find each other, and the value of the introduction is plain. Put a centralized operator between them, charge for the connection, and you get software whose business model pulls against what its users want.
 
-Dating apps and friendship discovery look like different problems. They are the same problem.
+Dating apps are the loud version. The product is the wait. Tinder, Hinge and the other apps Match Group owns, along with Bumble and the rest of the category, make their money on the chance of a meeting. Premium tiers boost your visibility. Paid picks gate the people you'd most want to talk to. Hinge still markets itself as "designed to be deleted," and the company's revenue depends on how long that takes.
 
-Both are categories where two people benefit when they find each other. Both are categories where the value of the introduction is unambiguous. And both are categories where, if you put a centralized operator between the two people and charge for the connection, you end up with software whose business model points in the opposite direction of what the people using it want.
+Friendship discovery is the quiet version. Every few years someone tries to build the app for making friends as an adult, and none of them has become the default way people do it. Friendship is hard to charge for. Nobody is desperate enough to pay for premium, and the hope a dating app sells has no friendship equivalent. The incentive structure that bent dating apps kept friendship apps small.
 
-Dating apps are the loud version of this. The product is the wait. Hinge, Bumble, Tinder, and the dozen apps that share their owner all monetize the chance of a meeting, not the meeting itself. Premium tiers boost your visibility. Top picks gate the people you would actually want to talk to. Every interface choice nudges you to swipe more, message more, never quite get there. The famous internal Hinge motto used to be "designed to be deleted," and the deletion they were optimizing for was the kind that takes eighteen months and four hundred dollars. The economics require it. The shareholders demand it.
+Same root, both times. At the center of any centralized matchmaking system, the operator's interests and the user's interests split. In dating, the operator profits from the wait. In friendship, the operator struggles to profit at all, so the thing rarely gets built well.
 
-Friendship discovery is the quiet version of the same problem. There is no Tinder for friendship. There has been no Tinder for friendship for fifteen years of trying. Bumble BFF was the most serious attempt and is now essentially defunct as a discovery mechanism. Meetup, the OG of finding people, has been optimized into something that mostly serves to remind you it exists. There is no category-defining product for finding friends as an adult, in part because friendship cannot be monetized the way dating can. You can't sell premium because nobody is desperate. You can't sell hope because the stakes are lower. The same incentive structure that broke dating apps simply prevented friendship apps from ever getting funded in the first place.
+The workaround routes around that center. A dating doc has no operator. A friendship Notion page has no monetization layer between you and the people you want to meet. These pages are honest because no business model leans on them.
 
-Both problems have the same root. The middle of any centralized matchmaking system is a place where the operator's interests and the user's interests diverge. In dating, the operator wants the wait to continue. In friendship, the operator can't make money at all, so the operator never builds the thing. Both end states are bad. Both are produced by the same architecture.
+The catch is that a Google Doc is a terrible search tool. It works when someone you trust shares it with you, and it stops there. It can't connect across cities, scenes or communities. The behavior is right; the infrastructure is missing.
 
-The workaround people have invented routes around the architecture. A dating doc has no operator in the middle. A friendship Notion page has no monetization layer slipping in between you and the people you want to meet. These artifacts work because they are honest. They are honest because there is no business model leaning on them.
+## What's missing, exactly
 
-The catch is that a Google Doc is a terrible search tool. It works only when someone you trust shares it with you. It does not scale. It cannot connect across cities, across scenes, across communities. The behavior is correct. The infrastructure is missing.
+Picture a city with five hundred people who have each written a dating doc, scattered across Google, Notion, Carrd, personal sites and a Reddit thread somebody maintains when they remember to. Those five hundred people have no way to find each other.
 
-## What is missing, exactly
+Now picture asking one plain question across all of them: who in this city is open to dating, shares my politics, lives near the train, and is fine with cats. You get a short ranked list pointing to people's own pages. You read one. You decide whether to write. Two people meet.
 
-Imagine a city. There are five hundred people in it who have written a dating doc, scattered across Google, Notion, Carrd, personal sites, and a Reddit thread someone is intermittently maintaining. There is no way for those five hundred people to find each other.
-
-Now imagine you could ask a simple question and have it search across all five hundred. "Who in this city is open to dating, has compatible politics, lives within a mile of the train, and is not allergic to cats." You would get a small ranked list. The list would point to the people's own pages. You would read the page. You would decide whether to reach out. Two people would meet.
-
-The protocol you would need to do that has only three moving parts. You need a way to describe a profile that any AI agent can read regardless of where the profile is hosted. You need a way to organize profiles into pools so that the question "who in this city" has a meaningful answer. And you need a way to connect with someone you found, with their consent, without putting any company in the middle of the conversation.
+The protocol that makes that possible has three moving parts. A way to describe a profile that any AI agent can read wherever the profile is hosted. A way to gather profiles into Pools, so "who in this city" has a meaningful answer. And a way to reach someone you found, with their consent, with no company sitting in the conversation.
 
 That is Kindling.
 
 ## What Kindling is
 
-Kindling is an open protocol. The word "protocol" is doing real work in that sentence and I want to be precise about it.
+A protocol is a set of public agreements about how data is structured and how messages are exchanged. Email runs on protocols, and so does the web. Nobody owns them, and they leave the interface to whoever builds one. They define how the underlying data and messages behave so anyone, anywhere, can build a client that works with everyone else's.
 
-A protocol is a set of public agreements about how data is structured and how messages are exchanged. SMTP is a protocol. The web is built on protocols. Email is a protocol. None of them is owned by a single company. None of them tells you how to build the user interface. They tell you how the underlying data and messages have to behave so that anyone, anywhere, can build a client that interoperates with everyone else.
+Kindling is a protocol in that sense. It's a specification anyone can read, fork, implement and build on. Someone can put a swipe interface on Kindling data, someone else a browsable list, a printed zine, or a chat-driven search box, and all of them interoperate. The protocol belongs to none of them.
 
-Kindling is a protocol in exactly that sense. It does not include a dating app. It does not have a brand consumer interface. It is a specification that anyone can read, fork, implement, and build on top of. The specification was published today on GitHub. Anyone can build a Tinder-style client, a Reddit-style browse view, a Craigslist-style list, a printed zine, or a chat-driven search box on top of the same Kindling data. They will all interoperate. None of them owns the protocol.
+The specification has two layers.
 
-There are two parts to the specification.
+The first is a profile standard. You publish a profile wherever you already keep things: a Notion page, a Google Doc, a Carrd site, a personal website, a GitHub README, a plain HTML file. The profile stays where you host it; Kindling stores no profile data. The baseline schema is a small set of IndieWeb HTML conventions called microformats, specifically h-card. Where a page has no markup, an AI parser may infer the rest, and it has to record which fields were marked up and which were inferred. The output is a structured JSON document any developer can consume. (This is the RSS gene: subscribe to what people already publish, on infrastructure they already trust, in a format any reader can render its own way.)
 
-The first part is a profile standard. Anyone can publish a profile of themselves wherever they already trust. A Notion page. A Google Doc. A Carrd site. A personal website. A GitHub README. A plain HTML file. The profile lives where the person hosts it. Kindling does not store profiles. The protocol uses a small set of HTML conventions called IndieWeb microformats (specifically `h-card`) as the baseline schema, and an AI parser fills in whatever the page does not mark up. The output is a structured JSON document that any developer can consume.
+The second is a Pool standard. A Pool is a curated list of profiles, organized by context: a city, a scene, a relationship orientation, a shared interest, an invite-only friend group, a community. Anyone can create one. A Pool is a manifest file naming its curator, its purpose, its visibility (public, unlisted or invite-only) and its consent model. Every consent model requires the owner's yes; silent inclusion is forbidden, with no exception. The Pool is what separates Kindling from pure peer-to-peer: an accountable human curator with a charter, where other systems put an algorithm.
 
-The second part is a Pool standard. A Pool is a curated list of profiles, organized by context. A Pool can be a city. A scene. A relationship orientation. A shared interest. An invite-only friend group. A healing community. Anyone can create a Pool. A Pool is published as a manifest file with the curator's identity, the Pool's intent, its visibility (public, unlisted, or invite-only), and its consent model (the default is universal opt-in: a profile cannot be added to a Pool without the owner's permission).
+Profiles live anywhere. Pools organize them. AI agents read across Pools to answer real questions. Connections happen through a consent handshake. After the introduction, two people talk however they like, and the protocol steps out of the way.
 
-Together, the two layers describe a kind of infrastructure that has not existed before. Profiles live everywhere. Pools organize them. AI agents read across Pools to answer real questions. Connections happen through a consent handshake. After the introduction, two people talk however they want. The protocol disappears the moment its job is done.
+## How a connection happens
 
-## How a connection actually happens
+Sarah keeps a profile on a Notion page. She's open to dating in Los Angeles and to new friends. The page says who she is, has a few photos and a contact email, and carries h-card markup that tells any reader where her name and location are.
 
-Suppose Sarah hosts a profile on her Notion page. She is open to dating in Los Angeles and to making new friends. The page has a brief description of who she is, a few photos, a contact email, and the IndieWeb h-card markup that signals to any reader where her name and location are.
+Her friend Mira runs a Pool called "Queer creatives in LA." Mira submits Sarah's URL to the Pool, and Sarah gets a handshake: a structured email with the Pool's name, its charter, its curator, what it's for, and one-click accept or decline. Sarah accepts. Her structured profile is now in Mira's Pool. Had she declined, the decline would be remembered, and Mira couldn't submit her again without her permission.
 
-A friend of Sarah's, call her Mira, runs a Pool called "queer creatives in LA who want more friends in their thirties." Mira sends Sarah's profile URL to the Pool. The Pool sends Sarah a handshake message. Sarah taps accept. Her structured profile is now part of Mira's Pool.
+Three weeks later Reza, in Echo Park, asks a Kindling client, "Who in queer creatives LA is up for a hike this weekend?" The client reads the profiles in Mira's Pool, ranks the matches, and shows three people, Sarah among them. Reza opens her Notion page, reads it, and decides to write.
 
-Three weeks later, somebody named Reza in Echo Park asks an AI client (which could be one of many, built on the Kindling spec) "who in queer creatives LA is up for a hike this weekend?" The agent reads the cached profiles in Mira's Pool, ranks the matches, and surfaces three people, including Sarah. Reza taps Sarah's name. The client opens her Notion page. He reads it. He decides to send a first message.
+His message travels through Kindling's messaging contract, which in v0.1 is structured email underneath. Sarah's email provider handles spam the way it always has. Whatever client each of them uses shows the conversation as an ordinary thread. They figure out a hike.
 
-That message goes through Kindling's native messaging contract. The transport, in v0.1, is structured email under the hood. Sarah's email provider does what it has always done about spam. The Kindling client renders the conversation as a normal thread, regardless of which client Sarah is using. The two of them figure out a hike.
+Between them there's no central app, no swipe screen and no premium tier. Mira runs the Pool because she cares about her community. The protocol runs on public agreements.
 
-That is the whole thing. There is no central app between them. There is no swipe screen. There is no premium tier. The Pool is run by Mira because Mira cares about her community, and the protocol is run by no one because protocols are not run by anyone.
+If Reza later wants a different interface, a list or a chat-driven search, he switches clients. Sarah's profile and Mira's Pool behave the same way in every one. That's what a protocol buys you.
 
-If Reza later decides he wants a different interface (a list view, a swipe view, a chat-driven search), he can use a different Kindling client. Sarah's profile and Mira's Pool work the same way regardless. That is the point of a protocol.
+## Why publish the spec first
 
-## Why open source first
+The fair objection: if you're going to build a thing, build the thing. Why publish a specification before there's a product anyone can use?
 
-There is an obvious objection at this point: if you're going to build a thing, build the thing. Why publish a specification before there is a product anyone can use?
+Credibility, first. People are tired of being asked to trust dating companies, and the companies haven't earned that trust. A protocol anyone can audit, fork and reimplement stands differently in the conversation. The specification is the proof that the operator has no thumb on the scale.
 
-Three reasons.
+Durability, second. If TranquilTech disappeared tomorrow, Pools would keep working, profiles would stay readable, and other implementations would keep running. The protocol survives any single company's solvency, including ours. That property can't be added later. Publishing the spec first commits to it in public.
 
-The first is credibility. People are tired of being asked to trust dating companies. The companies have not earned it. A protocol that anyone can audit, fork, and re-implement has a different kind of standing in the conversation. The specification is the product because the specification is the thing that proves the operator does not have a foot on the scale. Closed-source matchmaking has had its chance. There is room now for something inspectable.
+Third, an ecosystem. The most useful thing Kindling can do in its first year is make room for other people's implementations. That needs a real spec, inspectable schemas and an open way to contribute. Ship a hosted product first and the spec second, and you get a single-vendor protocol.
 
-The second is durability. If TranquilTech (the company publishing Kindling) goes away tomorrow, Pools keep working. Profiles keep being readable. Other implementations keep running. The protocol does not depend on any single company's solvency. That property is hard to manufacture later. It has to be designed in from the beginning. Publishing the spec first is the simplest way to commit to that property in public.
+This is also where the Bitcoin comparison holds and the Napster comparison ends. Napster was peer-to-peer. Kindling v0.1 sends its bytes over plain email, because email already has the federation, spam filtering and deliverability that a new network would spend a decade rebuilding. Borrowing a working federation is a deliberate choice.
 
-The third is ecosystem. The most important thing Kindling can do in its first year is create the conditions for other people to build implementations. That happens only if the spec is real, the schemas are inspectable, and the contribution model is open. Building a hosted product first and a spec later is how you get a single-vendor protocol. That is not the goal here.
+The license is split on purpose. Code is Apache 2.0, so anyone can fork it, vendor it and embed it. The spec text is CC BY 4.0, so it can be quoted in books, articles, derivative specifications and academic work without a negotiation.
 
-## Mycelial: the first implementation, on purpose not the only one
+## Mycelial: the first planned implementation
 
-Kindling needs a working reference implementation to be credible. The reference implementation is Mycelial.
+A protocol earns credibility when something real runs on it. Nothing at TranquilTech does yet, and that's by design: the spec came first so that no product of ours could shape it to suit itself.
 
-Mycelial is the rooted layer of TranquilTech's broader work, an interconnected network of healing communities (Groves) where people gather around shared intention and skilled facilitation. Mycelial is the right first home for Kindling because the people in Mycelial Groves are exactly the audience for whom centralized matchmaking has failed worst: neurodivergent communities, trauma-informed circles, psychedelic integration networks, somatic practice spaces. People for whom the ambient meat market of mainstream dating apps is the wrong room entirely.
+The first implementation is planned inside Mycelial, TranquilTech's online community platform, a network of Groves where people gather around shared interests with facilitators who keep the room. Mycelial is in early access now. Kindling inside it is planned for the first quarter of 2027. Mycelial fits because many of the people in its Groves, neurodivergent communities and trauma-informed circles among them, are the ones mainstream matchmaking has served worst.
 
-Inside Mycelial, Pools become the way Grove inhabitants find each other within and across Groves. A Grove can host its own Pools (a "looking for a coffee buddy" Pool, a "dating-open in this Grove" Pool, an "available to mentor on integration work" Pool). Pools can also span Groves through the Mycelial Network, so someone rooted in a Trauma-Informed Grove in Austin can be found by someone in a Psychedelic Integration Grove in Berlin who is asking the right question.
+The two get conflated, so to be exact: **Kindling is the protocol; Mycelial will be one implementation of it.** "Grove" and "garden tender" are Mycelial's words for Mycelial's concepts. Other implementations should bring their own vocabulary for their own communities.
 
-The first version of Mycelial Pools ships about four months after the framework launch. It will not be the only Kindling implementation by then. The point of publishing the spec first is to give other people, working on their own scenes and communities, a real chance to ship implementations on their own timeline. A queer-creatives-in-LA implementation. A polyam-LA implementation. A founders-finding-co-founders implementation. A new-parents implementation. None of these need to wait for TranquilTech. The spec is the spec. Build it.
+Inside Mycelial, Pools would become the way members find each other within and across Groves. A Grove could host a coffee-buddy Pool, a dating-open Pool, or a Pool of people available to mentor. Pools could also span Groves, so someone in a trauma-informed Grove in Austin could be found by someone in Berlin asking the right question.
 
-## Sustainability without extraction
+Mycelial should be one of many. The point of publishing the spec on its own is to give people working in their own scenes a real chance to ship first, on their own timelines: a queer-creatives-in-LA implementation, a founders-finding-co-founders one, a new-parents one. None of them needs to wait for TranquilTech.
 
-The obvious next question is the only one any thoughtful reader is actually asking by this point: how does this fund itself, and how do you avoid recreating the trap?
+## Paying for it without recreating the trap
 
-Kindling itself takes no money from people looking for connection. The protocol is free. The reference implementation inside Mycelial is free at the connection layer.
+Kindling takes no money from people looking for connection. The protocol is free, and the specification defines no chargeable surface between two people who want to meet. That's a stated non-goal of the spec.
 
-Future versions of the framework will introduce two optional, post-result revenue surfaces. Both share a key property: they happen after a connection has already succeeded, never before, and they are voluntary. They cannot be turned into paywalls.
+Two optional ways for an implementation to sustain itself are planned for later. Both happen only after a connection has worked, and both are voluntary, so neither can become a paywall.
 
-The first is gratitude offerings. After a meaningful connection, an inhabitant of any Kindling implementation can choose to leave a token of thanks. The implementation may offer a small digital keepsake the two new connections can share, designed by community contributors. The keepsake is the optional artifact. The token is the optional payment. Both are post-result.
+The first is gratitude offerings. After a connection that mattered, someone can choose to leave a token of thanks, and an implementation might offer a small digital keepsake the two people share, designed by community contributors. Voluntary post-introduction gratitude is in the v0.2 draft.
 
-The second is the Hall of Flame. People who find a life partner through a Kindling implementation can choose to commemorate the story in a public archive. A one-time contribution funds the archive's upkeep and the protocol's ongoing development. The framing is simple: the average dating app user spends well over $150 on premium features for the chance to meet someone. Contributing $100 to celebrate a connection once it is real is a meaningfully different economic relationship.
+The second is the Hall of Flame. People who find a partner through a Kindling implementation could choose to commemorate the story in a public archive, with a one-time contribution that funds its upkeep and the protocol's development. Paying once to celebrate a connection that already happened is a different economic relationship from paying for the chance of one.
 
-Neither of these surfaces is in v0.1. Both are explicitly described in the framework's Future Revisions section, planned for Mycelial's v1.1 and v1.2 releases. Naming them in public, before they exist, is part of the discipline. It signals that the long-term economic model is something we have thought about, that we are not winging it, and that no surprise monetization is going to appear later under the cover of "the founders had to make money somehow." The economic relationship in Kindling is post-result and voluntary, end to end. That is the commitment.
+Neither exists yet. I'm naming them in public before they exist on purpose, so nobody is surprised later by monetization that arrives under the cover of "the founders had to make money somehow." In Kindling, money moves after the result, voluntarily, from start to finish.
 
-## What Kindling cannot do
+## What Kindling can't do
 
-It is worth being honest about what this protocol does not do.
+Kindling removes one obstacle: a centralized operator whose business model points away from the outcome you want. What people do once it's gone is theirs to decide. It makes no promise of more love, better matches or less loneliness.
 
-Kindling does not promise that more people will find love. It does not promise better matches than the algorithms that came before. It does not solve loneliness, fix the friendship recession, or improve the dating market in any direct sense. What it does is remove a particular obstacle: the centralized operator whose business model points away from the outcome you actually want. What people do with that removal is up to them.
+Identity verification is layered (email, OAuth and curator vouching) and imperfect. Cryptographic identity, the Bitcoin gene I've been deferring, is in the v0.2 draft and absent from v0.1. Spam protection has three layers and will still miss things. Bad actors will try to abuse Kindling the way they try every public infrastructure. The spec gives people per-profile messaging rules, a public block list that any implementation can subscribe to, block lists from third parties, and an incident committee under the project's governance. Each of those is a starting point, and refining them is the work open governance exists to absorb.
 
-Kindling also does not solve every problem you could imagine attached to it. Identity verification is layered (email, OAuth, curator vouching) but not foolproof. Spam filtering exists in three layers but will not catch everything. Bad actors will try to abuse it, the way bad actors try to abuse every public infrastructure. The spec includes mechanisms (per-profile messaging preferences, shared block lists, cross-implementation block subscriptions, a curator-led incident response process), but every one of these is a starting point, and refining them is exactly the kind of work the protocol's open governance is designed to absorb over time.
+Kindling also can't exist alone. It depends on Pool curators, real people doing real work in real communities. With no Pools, there's nothing to query. The curator is the most important and least understood role in the whole design, and the curators are still to be found. The first ones will decide what good curation looks like as a craft, and their decisions will shape the protocol.
 
-The other thing Kindling cannot do is exist alone. The whole proposition rests on Pool curators being real people doing real work in real communities. If no one runs Pools, there are no Pools to query. The most important and least understood role in this network is the curator. We have recruited a small group of founding curators in advance of today's launch (in NYC, LA, SF, Berlin, and a handful of scene-specific Pools that span geographies), and the public registry launches today with their Pools listed. But the network needs many more, run by people who are not affiliated with TranquilTech and not waiting for permission.
+If you already do this work informally, as the person in your friend group, Discord or group chat who introduces people, runs the local newsletter or keeps the spreadsheet, this is for you. Run a Pool.
 
-If you are someone who already does this work informally (you are the one in your friend group or your Discord or your group chat who introduces people, who runs the local newsletter, who maintains the spreadsheet), this protocol is for you. Run a Pool. Curate it well. The early curators will shape how Pool curation works as a craft. Their decisions will live in the protocol's evolution.
+## Where things stand
 
-## The roadmap, briefly
+The v0.1 specification is published and stable. Changes before v0.2 land as opt-in additions or clearly marked deprecations, and section numbers stay put until a major version.
 
-The framework v0.1 specification, schemas, reference tooling, and the public registry of opt-in Pools are all live today at the Kindling GitHub repository and at kindling.dev. Anyone can clone the repo, validate a Pool manifest, run the starter discovery agent, deploy the registry to their own infrastructure, and submit pull requests against the spec.
+The repository holds the spec, the JSON schemas for profiles, Pools, handshakes and messages, and the reference tools. Anyone can clone it, validate a Pool manifest, parse a profile, run the starter discovery agent, stand up their own registry, and open pull requests against the spec.
 
-Mycelial's reference implementation ships in late summer. The build is paced deliberately, against a locked v0.1 spec, so that the protocol does not change underneath external implementers who are also building.
+Version 0.2 is in draft: cryptographic identity, portable identity across Pools, and voluntary post-introduction gratitude. What the first implementers run into will shape the rest.
 
-The first major spec revision (v0.2) lands later this year, informed by what the community discovers during the early-adoption period. It will include the cryptographic identity option, the spec-level addition of gratitude offerings, and whatever else the working group decides is ripe.
-
-By v1.0, governance fully transitions to the Kindling Working Group: one Mycelial maintainer seat, two independent-implementer seats elected by registered implementations, one IndieWeb representative seat, and a small advisory rotation. TranquilTech is the initial maintainer because someone has to ship v0.1, and we are paying for the first year of the registry's hosting and the spec's development. By v1.0, the project belongs to the working group. That handoff is part of the design.
+Governance widens as the protocol matures. TranquilTech is the initial maintainer, because someone has to ship v0.1, and changes land through an RFC process modeled on Rust's. At v0.2, implementers and IndieWeb regulars are invited onto the maintainer roster. By v1.0 a Kindling Working Group governs: one Mycelial seat, two seats elected by independent implementers, one IndieWeb seat and a rotating advisory group. By then TranquilTech is one voice among several. That handoff is part of the design.
 
 ## The invitation
 
-If you build software and you have ever looked at the dating-app market and wondered why it has been so resistant to good ideas, this is the protocol you want to fork. Build something. Ship a client. List it on the registry.
+If you build software and have wondered why the dating-app market resists good ideas, this is the protocol to fork. Build a client and tell us about it.
 
-If you write about social technology, the dating-app monoculture, the friendship recession, or the open-protocol revival, there is something to write about here. The press list has been small and curated. There is more room.
+If you write about social technology, the dating-app monoculture, the friendship recession or the revival of open protocols, there's a story here.
 
-If you run a community (a city, a Discord, a scene, a healing community, a network) and you already do introduction work informally, run a Pool. Be one of the people who decides what good Pool curation looks like before there is a playbook.
+If you run a community, whether a city, a Discord, a scene or a network, and you already make introductions, run a Pool and help decide what good curation looks like before anyone writes the playbook.
 
-If you are a person who has tried to find connection and given up on the apps, who has thought about writing your own dating doc but then thought about the friction of getting anyone to actually read it, watch what happens here over the next year. The first generation of Kindling clients will be rough. The second will be better. The thing that makes any of this work is that the spec underneath is durable, public, and not owned by anyone trying to keep you swiping.
-
-The fire starts here.
+And if you've tried the apps and given up, and thought about writing your own dating doc before remembering how hard it is to get anyone to read it, watch what happens here. The first Kindling clients will be rough and the second ones better. What holds it together is a spec that's durable, public, and owned by nobody who profits from keeping you swiping.
 
 ---
 
-*Kindling is published by TranquilTech as a contribution to the public infrastructure of human connection. Read the framework specification, browse the public registry, and follow the project at [kindling.dev](https://kindling.dev). The reference implementation inside Mycelial launches later this year at [mycelial.help](https://mycelial.help).*
-
-*If this resonated, share it with the person you know who would understand why it matters.*
+*Kindling is published by TranquilTech as a contribution to the public infrastructure of human connection. Read the specification and follow the project at [tranquiltech.solutions/kindling](https://tranquiltech.solutions/kindling). Mycelial, where the first implementation is planned, is at [mycelial.help](https://mycelial.help). Questions about the spec or about building on it: [josh@intellibotique.com](mailto:josh@intellibotique.com).*
