@@ -1,6 +1,6 @@
 # The Category Nobody Has Fixed, and the Protocol That Might
 
-*By Josh Wolf, founder of TranquilTech. Published April 2026; revised September 19, 2026.*
+*By Josh Wolf, founder of TranquilTech. Written April 2026; revised September 19, 2026.*
 *Reading time: about 13 minutes.*
 
 ---
