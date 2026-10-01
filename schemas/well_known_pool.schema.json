@@ -21,6 +21,10 @@
           "intent_tags": { "type": "array", "items": { "type": "string" } },
           "visibility": { "type": "string", "enum": ["public", "unlisted", "invite-only"] },
           "status": { "type": "string", "enum": ["active", "dormant", "archived"] },
+          "curator_contact": {
+            "type": "string",
+            "description": "How to reach the Pool's curator, as in its manifest. SHOULD be present (SPEC §10.2). Added in v0.1.1."
+          },
           "geographic_scope": {
             "type": "object",
             "additionalProperties": false,

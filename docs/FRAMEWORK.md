@@ -127,10 +127,10 @@ A profile is added to a Pool only after the owner accepts. There is no silent in
 
 1. A curator submits a profile URL to a Pool.
 2. The Pool's parser does a lightweight pre-fetch of the URL to find a contact method (h-card email, declared contact, OAuth identifier).
-3. The Pool sends a handshake message to that contact, containing: the Pool's name, charter, curator identity, intent tags, visibility, and a one-click accept link plus a one-click decline link.
+3. The Pool sends a handshake message to that contact, containing: the Pool's name, charter, curator identity, intent tags, visibility, an accept link and a decline link. Each link opens a page where the owner confirms; opening a link alone records nothing, because email security scanners open every link in a message.
 4. If the owner accepts, the Pool parses the page in full, caches the structured profile, and lists it.
 5. If the owner declines, the URL is recorded as declined for that Pool and cannot be re-submitted by the same curator without owner permission.
-6. If the owner does not respond within a configurable window (default 14 days), the submission expires.
+6. If the owner does not respond within the Pool's window (`handshake_window_days`, default 14 days), the submission expires.
 
 A profile owner can withdraw consent and remove themselves from a Pool at any time, through the same messaging channel.
 

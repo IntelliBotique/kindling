@@ -13,13 +13,13 @@
 
 ## Summary
 
-Defines four discovery surfaces for Pools: social sharing, a `.well-known/kindling-pool` convention, the Kindling public registry, and third-party registries. A spec-compliant Pool MUST be reachable through at least one surface and SHOULD publish a well-known file. No surface is privileged — the public registry is one consumer of the well-known convention, never the only one.
+Defines four discovery surfaces for Pools: social sharing, a `.well-known/kindling-pool` convention, the Kindling public registry, and third-party registries. A spec-compliant Pool MUST be reachable through at least one surface and SHOULD publish a well-known file. No surface is privileged: the public registry is one consumer of the well-known convention, never the only one.
 
 ---
 
 ## Motivation
 
-The protocol can't centralize discovery without recreating the operator-in-the-middle problem. It also can't rely exclusively on social virality without becoming unusable for anyone outside the founder's network. The four-surface design lets Pools travel however they travel — a Reddit link, a Twitter post, a city-specific directory, a public registry, a federated index — while making every Pool mechanically findable by any crawler that knows the well-known convention.
+The protocol can't centralize discovery without recreating the operator-in-the-middle problem. It also can't rely exclusively on social virality without becoming unusable for anyone outside the founder's network. The four-surface design lets Pools travel however they travel (a Reddit link, a Twitter post, a city-specific directory, a public registry, a federated index) while making every Pool mechanically findable by any crawler that knows the well-known convention.
 
 The well-known file is the single most important design decision in this section. It is the contract that makes third-party registries first-class: anyone can index Pools without asking permission, which means no registry (including Kindling's own) can become a bottleneck.
 
@@ -67,7 +67,7 @@ Key points:
 
 - **Federated registries** (independent registries subscribing to each other, propagating discovery without any bottleneck).
 - **Discovery via DNS TXT records** as an additional surface for Pools whose curators own a domain.
-- **Cross-Pool search** — a standard query interface that a discovery agent can hit against any registry.
+- **Cross-Pool search:** a standard query interface that a discovery agent can hit against any registry.
 
 ---
 
@@ -79,9 +79,9 @@ v0.1 launch. The public registry is deployed at registry.kindling.dev and accept
 
 ## Reference implementations
 
-- `registry/` — source code for the Kindling public registry, deployable to a single VPS.
-- `tools/discovery-agent/` — starter discovery agent that reads one or more Pool URLs and answers natural-language queries locally.
-- `examples/well-known-example.json` — canonical example of the well-known file format.
+- `registry/`: source code for the Kindling public registry, deployable to a single VPS.
+- `tools/discovery-agent/`: starter discovery agent that reads one or more Pool URLs and answers natural-language queries locally.
+- `examples/well-known-example.json`: canonical example of the well-known file format.
 
 ---
 

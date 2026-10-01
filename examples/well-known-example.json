@@ -7,6 +7,7 @@
       "intent_tags": ["friendship", "queer", "creative", "thirties", "los-angeles"],
       "visibility": "public",
       "status": "active",
+      "curator_contact": "mira@example.com",
       "geographic_scope": {
         "city": "Los Angeles",
         "region": "California",

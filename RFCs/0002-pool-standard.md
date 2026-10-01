@@ -33,7 +33,7 @@ Key points:
 
 - **Required fields** (§3.2) are the minimum that lets a UI render a Pool: name, curator, intent tags, visibility, consent model, curator contact, charter.
 - **Consent model defaults** to `universal-opt-in`. Pools MAY declare stricter variants but MUST NOT remove the owner's ability to decline or withdraw.
-- **Pool entries** (§3.4) carry `consent_proof` — a reference to the handshake response authorizing inclusion. This is the audit trail that makes silent inclusion detectable.
+- **Pool entries** (§3.4) carry `consent_proof`, a reference to the handshake response authorizing inclusion. This is the audit trail that makes silent inclusion detectable.
 - **Continuity** (§9) uses a 90-day curator-inactivity threshold, a 14-day transition window, and a two-thirds threshold for successful nomination. Co-curators listed in the manifest have first refusal.
 
 ---
@@ -78,9 +78,9 @@ v0.1 launch. The five default Mycelial Pool templates (per category enum) are se
 
 ## Reference implementations
 
-- `tools/validator/` — validates a Pool manifest URL against the schemas.
-- `registry/` — source code for the public registry.
-- `examples/pools/` — three hand-authored Pool manifests (neurodivergent-friendships, polyam-dating-bay-area, queer-creatives-la).
+- `tools/validator/`: validates a Pool manifest URL against the schemas.
+- `registry/`: source code for the public registry.
+- `examples/pools/`: three hand-authored Pool manifests (neurodivergent-friendships, polyam-dating-bay-area, queer-creatives-la).
 
 ---
 
@@ -94,9 +94,9 @@ v0.1 launch. The five default Mycelial Pool templates (per category enum) are se
 
 ## Security and abuse considerations
 
-- **Consent proof forgery.** A malicious Pool host could fabricate `consent_proof` references. Mitigation: the handshake server (RFC 0004) signs responses; any implementation MAY verify signatures on proofs before trusting a Pool entry.
+- **Consent proof forgery.** A malicious Pool host could fabricate `consent_proof` references. Mitigation: until signed consent proofs arrive with cryptographic identity in v0.2, a Pool entry is only as trustworthy as its host; implementations SHOULD prefer Pools whose hosts they trust. (Corrected in v0.1.1: v0.1 consent proofs carry no signature.)
 - **Takeover via nomination spam.** A coordinated group joining a dormant Pool to vote in a hostile curator. Mitigation: the active-member definition (§9.2) requires 60-day prior activity in the Pool, making ballot-stuffing impractical without advance planning.
-- **Visibility abuse.** An `unlisted` Pool isn't secret — its URL is just not in the public registry. Curators should be told this plainly; the README and CONTRIBUTING.md say so.
+- **Visibility abuse.** An `unlisted` Pool isn't secret: its URL is just not in the public registry. Curators should be told this plainly; the README and CONTRIBUTING.md say so.
 
 ---
 

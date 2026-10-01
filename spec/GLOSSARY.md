@@ -6,11 +6,11 @@ Defined terms used in the Kindling specification and reference tooling. Capitali
 
 **Active member.** An inhabitant who has accepted a handshake into a Pool, posted to it, or sent a Kindling message through it within the last 60 days. Used in Pool continuity (§9).
 
-**Archived Pool.** A Pool that failed curator transition. Readable but inert — no new submissions or messages are processed. May be revived.
+**Archived Pool.** A Pool that failed curator transition. Readable but inert: no new submissions or messages are processed. May be revived.
 
 **Asker.** A person using a Kindling UI to query one or more Pools. Not a protocol actor in itself; the term is used to describe user intent in UX writing.
 
-**Auto-accept rule.** A Profile-owner preference that authorizes automatic inclusion in Pools matching specified criteria (intent tags, curator verification level, visibility). Default off. Cap of five active rules per Profile. Every auto-accept event produces a notification; silent acceptance is forbidden.
+**Auto-accept rule.** A Profile-owner preference that authorizes automatic inclusion in Pools that meet specified criteria (intent tags, curator verification level, visibility). Never applies to an invite-only Pool (§5.5). Default off. Cap of five active rules per Profile. Every auto-accept event produces a notification; silent acceptance is forbidden.
 
 **Block list.** A signed JSON document listing Kindling identities that a consumer should filter out of messaging, handshakes, or discovery. The Kindling project publishes a default list; third parties may publish their own. Schema: `block_list.schema.json`.
 
@@ -68,9 +68,9 @@ Defined terms used in the Kindling specification and reference tooling. Capitali
 
 **Submission.** A Curator's act of proposing a Profile URL for inclusion in a Pool. A submission becomes an entry only after handshake accept.
 
-**Verification level.** One of `email-verified`, `oauth-verified`, `curator-vouched`, or `unverified`. Always visible alongside a Profile in any v1-conforming UI.
+**Verification level.** One of `email`, `oauth`, `curator-vouched` or `unverified` on the wire, shown as email-verified, oauth-verified, curator-vouched or unverified (§4.5); `cryptographic` is reserved for v0.2. Always visible alongside a Profile in any v1-conforming UI.
 
-**Visibility.** A Pool's discoverability setting. One of `public`, `unlisted`, `invite-only`. Does not alter the consent model — an invite-only Pool still requires handshake consent.
+**Visibility.** A Pool's discoverability setting. One of `public`, `unlisted`, `invite-only`. Does not alter the consent model: an invite-only Pool still requires handshake consent.
 
 **Well-known file.** The `/.well-known/kindling-pool` JSON document a domain publishes to announce the Pools it hosts. Consumed by crawlers and registries. Schema: `well_known_pool.schema.json`.
 

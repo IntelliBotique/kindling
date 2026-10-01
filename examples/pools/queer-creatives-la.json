@@ -41,8 +41,17 @@
         "about": "Documentary filmmaker, late thirties, queer, two cats. Looking for friendships with people who like long walks, weird movies, and conversations that wander. Also dating-open, primarily for women and non-binary folks.",
         "contact_methods": [{ "type": "email", "value": "sarah@example.com" }],
         "verification": { "level": "email", "verified_at": "2026-04-15T18:20:00Z" },
+        "extraction_source": {
+          "display_name": "h-card",
+          "pronouns": "h-card",
+          "location": "h-card",
+          "photo_hints": "h-card",
+          "about": "h-card",
+          "contact_methods": "h-card",
+          "intent_tags": "inferred"
+        },
         "parsed_at": "2026-04-15T18:25:00Z",
-        "parser": "kindling-parser-reference/0.1.0"
+        "parser": "kindling-parser-reference/0.1.1"
       },
       "parsed_at": "2026-04-15T18:25:00Z",
       "consent_proof": {
@@ -54,11 +63,11 @@
       "added_by": "mira@example.com"
     },
     {
-      "profile_url": "https://reza.notion.site/about-me",
+      "profile_url": "https://reza.example/about-me",
       "verification_level": "email",
       "parsed_profile": {
         "schema_version": "0.1",
-        "profile_url": "https://reza.notion.site/about-me",
+        "profile_url": "https://reza.example/about-me",
         "display_name": "Reza",
         "pronouns": "he/him",
         "location": { "city": "Los Angeles", "region": "California" },
@@ -66,8 +75,16 @@
         "about": "Poet and nonprofit fundraiser. Thirty-four. Gay, monogamous, not dating. Looking for friendships with people who still read books on paper and don't mind long silences.",
         "contact_methods": [{ "type": "email", "value": "reza@example.com" }],
         "verification": { "level": "email", "verified_at": "2026-04-17T11:00:00Z" },
+        "extraction_source": {
+          "display_name": "h-card",
+          "pronouns": "owner-declared",
+          "location": "inferred",
+          "about": "inferred",
+          "contact_methods": "h-card",
+          "intent_tags": "inferred"
+        },
         "parsed_at": "2026-04-17T11:05:00Z",
-        "parser": "kindling-parser-reference/0.1.0"
+        "parser": "kindling-parser-reference/0.1.1"
       },
       "parsed_at": "2026-04-17T11:05:00Z",
       "consent_proof": {

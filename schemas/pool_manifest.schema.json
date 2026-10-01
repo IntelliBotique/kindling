@@ -95,6 +95,12 @@
       "type": "string",
       "description": "Optional. How co-curators are added, how disputes are handled. Defaults to the protocol-level boilerplate when not specified."
     },
+    "handshake_window_days": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 14,
+      "description": "How many days a handshake request stays open before it expires (SPEC §5.2). A request's expires_at equals its sent_at plus this window. Added in v0.1.1."
+    },
     "messaging_preferences": {
       "type": "object",
       "description": "Pool-level defaults that apply to all members unless their profile overrides.",
@@ -123,8 +129,19 @@
       "description": "The list of profile entries in this Pool.",
       "items": {
         "type": "object",
+        "description": "One profile in this Pool. parsed_profile and parsed_at SHOULD be present once the profile has been parsed (SPEC §3.4).",
         "required": ["profile_url", "consent_proof", "verification_level", "added_at"],
         "additionalProperties": false,
+        "not": {
+          "$comment": "SPEC §2.7: a parsed profile with kindling_noindex set to true may not appear in a Pool entry.",
+          "required": ["parsed_profile"],
+          "properties": {
+            "parsed_profile": {
+              "required": ["kindling_noindex"],
+              "properties": { "kindling_noindex": { "const": true } }
+            }
+          }
+        },
         "properties": {
           "profile_url": {
             "type": "string",

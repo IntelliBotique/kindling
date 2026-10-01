@@ -26,7 +26,7 @@ Two constraints drove the design:
 1. **People already publish profiles where they trust.** Building a Kindling-specific profile host would recreate the operator-in-the-middle problem Kindling is explicitly avoiding.
 2. **Profiles are freeform in the wild.** A Google Doc, a Carrd page, and a Notion profile don't share a schema. The protocol has to read what's there rather than demand compliance.
 
-h-card gives us a well-understood, decade-old baseline that a Profile owner can opt into with three HTML class names. AI extraction gives us coverage for the >90% of existing self-hosted profiles that don't have h-card markup. Photo-by-URL-only keeps the "Kindling stores nothing" property true, which is the trust guarantee the protocol rests on.
+h-card gives us a well-understood, decade-old baseline that a Profile owner can opt into with three HTML class names. AI extraction gives us coverage for the >90% of existing self-hosted profiles that don't have h-card markup. Photo-by-URL-only keeps the "Kindling stores nothing" property true, which is the trust promise the protocol rests on.
 
 ---
 
@@ -64,7 +64,7 @@ Key points:
 ## Unresolved questions
 
 - **Parser disagreement.** If two Pools parse the same Profile and produce different `about` summaries or intent tags, which is canonical? Currently each Pool's cached version is authoritative for that Pool. A cross-Pool normalization layer may become desirable but is explicitly out of scope for v0.1.
-- **Source-page rate limits.** Parsers MUST respect robots.txt and 429/5xx. No normative back-off algorithm is defined; implementations use common-sense defaults. Future RFC may standardize.
+- **Source-page rate limits.** Parsers MUST respect robots.txt and 429/5xx. No normative back-off method is defined; implementations use common-sense defaults. Future RFC may standardize.
 
 ---
 
@@ -78,14 +78,14 @@ Key points:
 
 ## Adoption strategy
 
-v0.1 launch. No migration needed — this is the inaugural spec.
+v0.1 launch. No migration needed; this is the inaugural spec.
 
 ---
 
 ## Reference implementations
 
-- `tools/parser/` — reference CLI that reads a URL and emits a parsed Profile JSON using h-card detection plus an LLM fallback.
-- `examples/profiles/` — three hand-authored example Profile pages exercising h-card, mixed markup, and prose-only layouts.
+- `tools/parser/`: reference CLI that reads a URL and emits a parsed Profile JSON using h-card detection plus an LLM fallback.
+- `examples/profiles/`: three hand-authored example Profile pages exercising h-card, mixed markup, and prose-only layouts.
 
 ---
 
@@ -99,7 +99,7 @@ v0.1 launch. No migration needed — this is the inaugural spec.
 
 ## Security and abuse considerations
 
-- **Adversarial pages.** A malicious page can attempt to mislead parsers. Because inclusion requires handshake consent (RFC 0004), a mis-parsed hostile Profile cannot appear in a Pool without the actual page owner accepting — so the harm surface is narrow.
+- **Adversarial pages.** A malicious page can attempt to mislead parsers. Because inclusion requires handshake consent (RFC 0004), a mis-parsed hostile Profile cannot appear in a Pool without the actual page owner accepting, so the harm surface is narrow.
 - **Scraping.** The `kindling-noindex` directive is a polite signal, not an enforcement mechanism. Bad actors can ignore it. Block-list infrastructure (RFC 0006) is the backstop.
 - **Doxing risk.** Parsers extract location. Implementations MUST surface the `location` field at the specificity the author declared and SHOULD NOT geocode to higher precision than the source stated.
 
