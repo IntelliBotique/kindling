@@ -34,7 +34,7 @@ Spec Reviewers have merge rights on accepted RFCs and on substantive spec change
 
 ## Implementer Liaisons
 
-Implementer Liaisons are maintainers of registered Kindling implementations (other than Mycelial) who have shipped a working implementation. Liaisons can vote on RFCs and propose spec changes.
+Implementer Liaisons are maintainers of registered Kindling implementations, Mycelial included, who have shipped a working implementation. Liaisons can vote on RFCs and propose spec changes.
 
 *No Implementer Liaisons named yet. The first Liaisons will be added as independent implementations ship in the months following v0.1 launch.*
 

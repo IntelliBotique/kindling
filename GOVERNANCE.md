@@ -24,7 +24,7 @@ Three principles guide every governance decision:
 
 **Spec Reviewers.** A small group of invited reviewers with merge rights on spec changes. The first cohort was recruited from the IndieWeb community, identity-protocol veterans, and dating-tech builders during the pre-launch period. New reviewers are invited by consensus of existing reviewers, plus the Initial Maintainer's sign-off until v0.3.
 
-**Implementer Liaisons.** Maintainers of registered Kindling implementations (other than Mycelial) who have shipped a working implementation are eligible to become Implementer Liaisons. Liaisons can vote on RFCs and propose spec changes. They are not required to have commit rights.
+**Implementer Liaisons.** Maintainers of registered Kindling implementations, Mycelial included, who have shipped a working implementation are eligible to become Implementer Liaisons. Liaisons can vote on RFCs and propose spec changes. They are not required to have commit rights.
 
 **Working Group (post-v1.0).** The body that takes over governance at v1.0. See "The transition" below for composition and selection.
 
@@ -88,7 +88,7 @@ TranquilTech, through the Initial Maintainer role, holds the project for v0.1 an
 
 **v0.5 → v1.0.** The Working Group operates with full authority over the spec, the schemas, and the reference tooling. The Initial Maintainer continues to operate registry infrastructure for one year past v1.0, after which infrastructure operation is transferred to a body chosen by the Working Group (a community foundation, a hosting partnership, or a similar entity).
 
-**At v1.0.** TranquilTech retains one Working Group seat as the maintainer of Mycelial. All other governance authority sits with the Working Group. The transition is complete.
+**At v1.0.** All governance authority sits with the Working Group. TranquilTech holds no reserved seat; it and Mycelial can compete for an implementer seat like any other implementer. The transition is complete.
 
 ---
 
@@ -96,15 +96,14 @@ TranquilTech, through the Initial Maintainer role, holds the project for v0.1 an
 
 When fully constituted (by v0.5 at the latest, fully governing by v1.0), the Working Group has the following seats:
 
-- **One Mycelial maintainer seat.** Held by the maintainer of the Mycelial reference implementation. Permanent.
-- **Two independent-implementer seats.** Held by maintainers of registered Kindling implementations other than Mycelial. Elected by the maintainers of all registered implementations. Two-year terms, staggered, so one seat is up for election each year.
+- **Two implementer seats.** Held by maintainers of registered Kindling implementations. Mycelial can compete for one like any other implementation, and no implementation holds a reserved seat. Elected by the maintainers of all registered implementations. Two-year terms, staggered, so one seat is up for election each year.
 - **One IndieWeb representative seat.** Held by a member of the IndieWeb community recognized by the IndieWeb's own consensus processes. Two-year term.
 - **One Pool curator seat.** Held by a curator of a registered Pool, elected by registered curators. One-year term.
 - **One advisory rotation seat.** A six-month rotating seat that can be filled by anyone the Working Group invites for context on a specific topic (identity protocols, accessibility, abuse response, internationalization, etc.).
 
-Total: six seats, with five voting members for ordinary RFC decisions and the advisory seat counted only on topics where its advisory expertise is specifically engaged.
+Total: five seats, with four voting members for ordinary RFC decisions and the advisory seat counted only on topics where its advisory expertise is specifically engaged.
 
-**Quorum.** At least four of the five voting members must participate in any decision.
+**Quorum.** At least three of the four voting members must participate in any decision.
 
 **Term limits.** A person may hold the same seat for at most two consecutive terms.
 
