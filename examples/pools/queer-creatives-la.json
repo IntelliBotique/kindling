@@ -28,18 +28,18 @@
   "updated_at": "2026-04-22T09:30:00Z",
   "entries": [
     {
-      "profile_url": "https://sarah.example.com/about",
+      "profile_url": "https://noor.example.com/about",
       "verification_level": "email",
       "parsed_profile": {
         "schema_version": "0.1",
-        "profile_url": "https://sarah.example.com/about",
-        "display_name": "Sarah K.",
+        "profile_url": "https://noor.example.com/about",
+        "display_name": "Noor K.",
         "pronouns": "she/her",
         "location": { "city": "Los Angeles", "region": "California" },
-        "photo_hints": ["https://sarah.example.com/photos/sarah-1.jpg"],
+        "photo_hints": ["https://noor.example.com/photos/noor-1.jpg"],
         "intent_tags": ["friendship", "hiking", "movies", "queer"],
         "about": "Documentary filmmaker, late thirties, queer, two cats. Looking for friendships with people who like long walks, weird movies, and conversations that wander. Also dating-open, primarily for women and non-binary folks.",
-        "contact_methods": [{ "type": "email", "value": "sarah@example.com" }],
+        "contact_methods": [{ "type": "email", "value": "noor@example.com" }],
         "verification": { "level": "email", "verified_at": "2026-04-15T18:20:00Z" },
         "extraction_source": {
           "display_name": "h-card",

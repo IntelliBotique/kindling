@@ -60,7 +60,7 @@ npx kindling-validate https://example.com/pools/queer-creatives-la
 **Parse a profile URL:**
 
 ```bash
-npx kindling-parse https://sarah.example.com
+npx kindling-parse https://noor.example.com
 ```
 
 **Run the starter discovery agent against a Pool:**

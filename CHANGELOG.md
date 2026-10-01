@@ -55,10 +55,12 @@ It also carries the errata found while the reference sites were built (1 October
 
 - Example profile URLs now use reserved `.example` hosts, so no real person's page is pointed at.
 - The examples exercise `extraction_source`, `handshake_window_days` and `curator_contact`.
+- The example person in the Queer creatives in LA Pool is now Noor, as on the protocol site, across the examples, tests, README and launch essay (`examples/profiles/noor-example.html`).
 
 ### Editorial
 
 - RFCs 0001 to 0007 and the glossary use the v0.1.1 names, and drop em dashes.
+- The launch essay's handshake has two links that open a page for the answer, not a one-click accept or decline.
 
 ### Added
 
