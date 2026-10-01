@@ -133,7 +133,7 @@ The repository holds the spec, the JSON schemas for profiles, Pools, handshakes 
 
 Version 0.2 is in draft: cryptographic identity, portable identity across Pools, and voluntary post-introduction gratitude. What the first implementers run into will shape the rest.
 
-Governance widens as the protocol matures. TranquilTech is the initial maintainer, because someone has to ship v0.1, and changes land through an RFC process modeled on Rust's. At v0.2, implementers and IndieWeb regulars are invited onto the maintainer roster. By v1.0 a Kindling Working Group governs: one Mycelial seat, two seats elected by independent implementers, one IndieWeb seat and a rotating advisory group. By then TranquilTech is one voice among several. That handoff is part of the design.
+Governance widens as the protocol matures. TranquilTech is the initial maintainer, because someone has to ship v0.1, and changes land through an RFC process modeled on Rust's. At v0.2, implementers and IndieWeb regulars are invited onto the maintainer roster. By v1.0 a Kindling Working Group governs: two seats elected by implementers, one IndieWeb seat and a rotating advisory group. No implementation, Mycelial included, holds a reserved seat. By then TranquilTech is one voice among several. That handoff is part of the design.
 
 ## The invitation
 
