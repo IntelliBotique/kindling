@@ -4,9 +4,9 @@
   "name": "Kindling Default Block List",
   "description": "The default block list maintained by the Kindling project. Subscribed to by the public registry and the reference implementation. Other registries and implementations are encouraged to subscribe or to maintain their own.",
   "publisher": {
-    "identity": "blocklist@kindling.dev",
+    "identity": "blocklist@kindling.foundation",
     "name": "Kindling Project",
-    "url": "https://kindling.dev"
+    "url": "https://protocol.kindling.foundation"
   },
   "version": 1,
   "published_at": "2026-04-22T00:00:00Z",
@@ -14,6 +14,6 @@
   "signature": {
     "algorithm": "placeholder",
     "value": "unsigned-v0.1",
-    "key_url": "https://kindling.dev/keys/placeholder"
+    "key_url": "https://protocol.kindling.foundation/keys/placeholder"
   }
 }

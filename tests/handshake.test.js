@@ -16,7 +16,9 @@ function handshakeValidator() {
   for (const file of readdirSync(SCHEMAS_DIR).filter((f) => f.endsWith('.json'))) {
     ajv.addSchema(JSON.parse(readFileSync(join(SCHEMAS_DIR, file), 'utf8')));
   }
-  return ajv.getSchema('https://kindling.dev/schemas/handshake_message.schema.json');
+  return ajv.getSchema(
+    'https://protocol.kindling.foundation/schemas/handshake_message.schema.json',
+  );
 }
 
 const POOL = {

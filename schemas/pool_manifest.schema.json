@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/pool_manifest.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/pool_manifest.schema.json",
   "title": "PoolManifest",
   "description": "A Kindling Pool: a curated list of profile entries plus the metadata that defines its purpose, governance, and consent rules.",
   "type": "object",
@@ -148,7 +148,7 @@
             "format": "uri"
           },
           "parsed_profile": {
-            "$ref": "https://kindling.dev/schemas/parsed_profile.schema.json"
+            "$ref": "https://protocol.kindling.foundation/schemas/parsed_profile.schema.json"
           },
           "parsed_at": {
             "type": "string",

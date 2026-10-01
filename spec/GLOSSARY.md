@@ -64,7 +64,7 @@ Defined terms used in the Kindling specification and reference tooling. Capitali
 
 **Profile owner.** The person who published and controls the Profile URL. The only party who can consent to inclusion in a Pool.
 
-**Registry.** A directory of opt-in Pools. Kindling runs one (registry.kindling.dev); third parties may run their own.
+**Registry.** A directory of opt-in Pools. Kindling runs one (github.com/IntelliBotique/kindling/tree/main/registry-data); third parties may run their own.
 
 **Submission.** A Curator's act of proposing a Profile URL for inclusion in a Pool. A submission becomes an entry only after handshake accept.
 

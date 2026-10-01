@@ -114,7 +114,7 @@ program
     list.signature = {
       algorithm: 'placeholder',
       value: 'unsigned-v0.1',
-      key_url: 'https://kindling.dev/keys/placeholder',
+      key_url: 'https://protocol.kindling.foundation/keys/placeholder',
     };
     saveList(opts.file, list);
     console.log('Placeholder signature added. Real cryptographic signing lands in v0.2.');

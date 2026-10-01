@@ -40,6 +40,10 @@ It also carries the errata found while the reference sites were built (1 October
 12. **Messaging rules (§7.2).** The text uses the schema's `accept_from` values and `no_cold_messages`, with a table for the old names; `minimum_sender_verification` is a Pool-level default.
 13. **Consent proof signatures (RFC 0004).** Corrected: v0.1 consent proofs carry no signature. One arrives with cryptographic identity in v0.2.
 
+### Addresses
+
+- **The project's addresses move from kindling.dev to kindling.foundation.** Someone else holds kindling.dev, so nothing in the repo points there any more. Schema `$id`s are now `https://protocol.kindling.foundation/schemas/<name>.schema.json`, where the protocol site serves each schema. The maintainer, conduct, registry, handshake and block-list addresses are `@kindling.foundation`. The text names `registry-data/` as the public registry's list of Pools, and links meant for people go to kindling.foundation. A validator that looks schemas up by `$id` needs the new base; no Kindling document changes.
+
 ### Tooling
 
 - `kindling-validate` warns, without failing, when a Pool entry lacks `parsed_profile` or `parsed_at`, or a well-known entry lacks `curator_contact`, and explains the noindex rule in plain words.

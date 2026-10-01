@@ -4,7 +4,7 @@
   "description": "Kindling: an open protocol for human connection. Reference tooling and public registry.",
   "license": "Apache-2.0",
   "author": "TranquilTech",
-  "homepage": "https://kindling.dev",
+  "homepage": "https://protocol.kindling.foundation",
   "type": "module",
   "repository": {
     "type": "git",

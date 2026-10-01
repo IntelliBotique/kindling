@@ -297,7 +297,7 @@ Any domain hosting a Pool SHOULD publish a `.well-known/kindling-pool` document 
 
 ### 8.4 Kindling public registry
 
-The project runs a public registry of opt-in Pools at registry.kindling.dev. Listing is by curator self-submission. The registry is one consumer of the well-known convention; it MUST NOT be the only way a Pool is discoverable.
+The project runs a public registry of opt-in Pools at github.com/IntelliBotique/kindling/tree/main/registry-data. Listing is by curator self-submission. The registry is one consumer of the well-known convention; it MUST NOT be the only way a Pool is discoverable.
 
 ### 8.5 Third-party registries
 

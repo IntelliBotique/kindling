@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/well_known_pool.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/well_known_pool.schema.json",
   "title": "WellKnownKindlingPool",
   "description": "The discovery file published at /.well-known/kindling-pool by any domain hosting a Pool. Crawlers and registries fetch this to find Pools without a central authority.",
   "type": "object",

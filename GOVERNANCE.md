@@ -114,7 +114,7 @@ Total: six seats, with five voting members for ordinary RFC decisions and the ad
 
 ## Funding and infrastructure
 
-TranquilTech funds the public registry's hosting, the project's domain (`kindling.dev`), the spec's documentation site, and the deliverability of the handshake email infrastructure for the first year after launch. After year one, funding for ongoing infrastructure transfers to whichever entity the Working Group chooses (a community foundation, a hosting partnership, or a sponsorship model).
+TranquilTech funds the public registry's hosting, the project's domain (`kindling.foundation`), the spec's documentation site, and the deliverability of the handshake email infrastructure for the first year after launch. After year one, funding for ongoing infrastructure transfers to whichever entity the Working Group chooses (a community foundation, a hosting partnership, or a sponsorship model).
 
 The project does not accept payment for spec changes, RFC acceptance, registry placement, or any other governance outcome. Pool curators may not pay to be featured. Implementations may not pay for endorsement. The project's spec, registry, and documentation surfaces remain non-commercial in the sense that no editorial or governance decision is for sale.
 
@@ -126,7 +126,7 @@ If the project ever begins accepting sponsorships (for events, for documentation
 
 The project's Code of Conduct (`CODE_OF_CONDUCT.md`) applies to all participation: GitHub issues, pull requests, RFC discussions, the public registry, the project's chat channels (when established), and any in-person events held under the Kindling name.
 
-**Enforcement is delegated to the Code of Conduct Committee.** The committee is composed of three people who are not maintainers of the spec or the reference implementation. The first committee was named at the v0.1 launch; the current members are listed in `CODE_OF_CONDUCT.md`. Reports go to `conduct@kindling.dev` and are reviewed by the committee independently of the maintainers and the Working Group.
+**Enforcement is delegated to the Code of Conduct Committee.** The committee is composed of three people who are not maintainers of the spec or the reference implementation. The first committee was named at the v0.1 launch; the current members are listed in `CODE_OF_CONDUCT.md`. Reports go to `conduct@kindling.foundation` and are reviewed by the committee independently of the maintainers and the Working Group.
 
 **Committee decisions are final** for individual incidents. Patterns of incidents that suggest structural problems can be referred by the committee to the Working Group for spec-level or governance-level changes.
 

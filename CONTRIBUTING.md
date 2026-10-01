@@ -24,7 +24,7 @@ None of these require permission.
 
 **Build an implementation.** Ship a Kindling client, Pool host, or registry. Once the public registry is live (with v0.1.1), submit your implementation manifest there to be listed.
 
-**Run a Pool.** Pool curation is the most important and least understood role in the network. The early curators are shaping how Pool curation works as a craft; a written curator playbook will be published alongside v0.1.1. In the meantime, if you want to run a Pool, read [`spec/SPEC.md`](spec/SPEC.md) §3 and §5 (Pool layer and consent), look at the manifests under [`examples/pools/`](examples/pools/), and email `maintainers@kindling.dev` — we want to hear from you.
+**Run a Pool.** Pool curation is the most important and least understood role in the network. The early curators are shaping how Pool curation works as a craft; a written curator playbook will be published alongside v0.1.1. In the meantime, if you want to run a Pool, read [`spec/SPEC.md`](spec/SPEC.md) §3 and §5 (Pool layer and consent), look at the manifests under [`examples/pools/`](examples/pools/), and email `maintainers@kindling.foundation` — we want to hear from you.
 
 ---
 
@@ -110,9 +110,9 @@ The DCO certifies that you have the right to contribute the code (you wrote it, 
 - **GitHub Discussions** for protocol design, implementation questions, and open-ended thinking
 - **GitHub Issues** for specific bugs and concrete proposals
 - **`#kindling` channel on the IndieWeb chat** for casual conversation
-- **`maintainers@kindling.dev`** for private questions about the project's direction
+- **`maintainers@kindling.foundation`** for private questions about the project's direction
 
-For Code of Conduct concerns, do not use the public channels above. Email `conduct@kindling.dev` directly. See `CODE_OF_CONDUCT.md`.
+For Code of Conduct concerns, do not use the public channels above. Email `conduct@kindling.foundation` directly. See `CODE_OF_CONDUCT.md`.
 
 ---
 

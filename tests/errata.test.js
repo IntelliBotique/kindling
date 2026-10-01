@@ -12,7 +12,7 @@ import { buildParsedProfile, hasNoindex, provenance } from '../tools/parser/bin/
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const SCHEMAS_DIR = join(ROOT, 'schemas');
-const BASE = 'https://kindling.dev/schemas/';
+const BASE = 'https://protocol.kindling.foundation/schemas/';
 
 let ajv;
 const check = (name, data) => ajv.getSchema(`${BASE}${name}.schema.json`)(data);

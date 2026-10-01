@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/parsed_profile.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/parsed_profile.schema.json",
   "title": "ParsedProfile",
   "description": "The structured representation of a Kindling profile, produced by parsing a freeform profile URL (with h-card baseline plus AI extraction).",
   "type": "object",

@@ -54,7 +54,7 @@ The Code of Conduct Committee is composed of three people who are **not** mainta
 | *[Name 2]* | *[Affiliation]* | 2028-04 |
 | *[Name 3]* | *[Affiliation]* | 2028-04 |
 
-For Code of Conduct concerns: `conduct@kindling.dev`.
+For Code of Conduct concerns: `conduct@kindling.foundation`.
 
 ---
 
@@ -80,7 +80,7 @@ The path depends on the role.
 
 ## How to step down
 
-Email `maintainers@kindling.dev` (for spec / reviewer roles) or `conduct@kindling.dev` (for committee roles) and let the rest of the team know. Stepping down is normal and accepted. We'd rather have engaged maintainers who choose to be here than tenured maintainers who don't have time anymore.
+Email `maintainers@kindling.foundation` (for spec / reviewer roles) or `conduct@kindling.foundation` (for committee roles) and let the rest of the team know. Stepping down is normal and accepted. We'd rather have engaged maintainers who choose to be here than tenured maintainers who don't have time anymore.
 
 When you step down, your name moves to the **Past maintainers** section below with thanks.
 

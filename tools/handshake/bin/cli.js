@@ -24,7 +24,7 @@
  *
  * Usage:
  *   PORT=3001 SMTP_HOST=... SMTP_USER=... SMTP_PASS=... \
- *   FROM_EMAIL=handshake@kindling.dev BASE_URL=https://handshake.kindling.dev \
+ *   FROM_EMAIL=handshake@kindling.foundation BASE_URL=https://handshake.kindling.foundation \
  *   kindling-handshake
  *
  * HANDSHAKE_TTL_DAYS (default 14) is the window for a Pool whose manifest sets no handshake_window_days.
@@ -64,7 +64,7 @@ export function windowDays(pool, fallbackDays = 14) {
 export function createApp(options = {}) {
   const stateDir = options.stateDir || resolvePath(__dirname, '../state');
   const baseUrl = options.baseUrl || 'http://localhost:3001';
-  const fromEmail = options.fromEmail || 'handshake@kindling.dev';
+  const fromEmail = options.fromEmail || 'handshake@kindling.foundation';
   const defaultWindowDays = Number(options.defaultWindowDays || 14);
   const fetchImpl = options.fetch || fetch;
   const sendMail = options.sendMail || (async () => {});
@@ -130,7 +130,7 @@ Review and decline: ${decline}
 
 This invitation expires on ${record.expires_at}.
 
-About Kindling: an open protocol for human connection. https://kindling.dev
+About Kindling: an open protocol for human connection. https://kindling.foundation
 `;
     return { to: record.recipient_email, from: fromEmail, subject, text };
   }
@@ -345,7 +345,7 @@ if (isMain()) {
   });
   const app = createApp({
     baseUrl: process.env.BASE_URL || `http://localhost:${PORT}`,
-    fromEmail: process.env.FROM_EMAIL || 'handshake@kindling.dev',
+    fromEmail: process.env.FROM_EMAIL || 'handshake@kindling.foundation',
     defaultWindowDays: Number(process.env.HANDSHAKE_TTL_DAYS || 14),
     sendMail: (mail) => transporter.sendMail(mail),
   });

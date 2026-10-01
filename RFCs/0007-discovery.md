@@ -73,7 +73,7 @@ Key points:
 
 ## Adoption strategy
 
-v0.1 launch. The public registry is deployed at registry.kindling.dev and accepts curator submissions. The reference discovery agent (`tools/discovery-agent/`) can query any Pool URL directly and does not require going through a registry.
+v0.1 launch. The public registry is deployed at github.com/IntelliBotique/kindling/tree/main/registry-data and accepts curator submissions. The reference discovery agent (`tools/discovery-agent/`) can query any Pool URL directly and does not require going through a registry.
 
 ---
 
