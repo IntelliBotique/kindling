@@ -31,9 +31,9 @@ See `spec/SPEC.md` §7.
 
 Key points:
 
-- **Layer 1 — identity-based gating** (§7.1). Messages from senders with stronger verification pass through. Messages from unverified senders are quarantined or rejected per recipient preference. Curator-vouched senders pass within the Pool that vouched for them.
-- **Layer 2 — per-profile preferences** (§7.2). A Profile declares its own messaging rules: `open-to-all`, `pool-mates-only`, `vouched-only`, `no-cold-messages`, `minimum-sender-verification`. Implementations MUST honor declared rules.
-- **Layer 3 — shared block lists** (§7.3). The Kindling project publishes a public block list. Third parties MAY publish their own. Implementations subscribe to one or more lists and filter accordingly. Schema: `block_list.schema.json`.
+- **Layer 1: identity-based gating** (§7.1). Messages from senders with stronger verification pass through. Messages from unverified senders are quarantined or rejected per recipient preference. Curator-vouched senders pass within the Pool that vouched for them.
+- **Layer 2: per-profile preferences** (§7.2). A Profile declares its own messaging rules: `accept_from` (`anyone`, `verified`, `shared-pool`, `vouched` or `none`) and `no_cold_messages`, and a Pool may set `minimum_sender_verification` as a default. These were named `open-to-all`, `pool-mates-only`, `vouched-only`, `no-cold-messages` and `minimum-sender-verification` before v0.1.1. Implementations MUST honor declared rules.
+- **Layer 3: shared block lists** (§7.3). The Kindling project publishes a public block list. Third parties MAY publish their own. Implementations subscribe to one or more lists and filter accordingly. Schema: `block_list.schema.json`.
 
 The three layers compound. An implementation can't pick one and skip the others and still claim v1 conformance.
 
@@ -68,8 +68,8 @@ The three layers compound. An implementation can't pick one and skip the others 
 
 - **Cryptographic provenance for block-list entries** (each addition signed by the list publisher, chain-of-custody inspectable).
 - **Pool-federation-level moderation** (affiliated Pools share block lists automatically).
-- **Cross-implementation reputation** — an identity's track record travels with them across implementations.
-- **Automated abuse-report workflow** — a standardized way to move a Kindling identity from "reported" to "on the public list."
+- **Cross-implementation reputation:** an identity's track record travels with them across implementations.
+- **Automated abuse-report workflow:** a standardized way to move a Kindling identity from "reported" to "on the public list."
 
 ---
 
@@ -81,8 +81,8 @@ v0.1 launch. The reference `tools/blocklist-publisher/` publishes a signed JSON 
 
 ## Reference implementations
 
-- `tools/blocklist-publisher/` — tool for publishing and signing block list files.
-- `examples/blocklist-example.json` — canonical example of the block list format.
+- `tools/blocklist-publisher/`: tool for publishing and signing block list files.
+- `examples/blocklist-example.json`: canonical example of the block list format.
 
 ---
 
@@ -97,7 +97,7 @@ v0.1 launch. The reference `tools/blocklist-publisher/` publishes a signed JSON 
 ## Security and abuse considerations
 
 - **List poisoning.** A malicious publisher could add innocent identities to a block list. Mitigation: signature verification, implementation-level multi-list consensus, appeals process in GOVERNANCE.md.
-- **Rule-stacking for abuse.** A bad actor could set `open-to-all` on their Profile and then send aggressive messages once contacted. Mitigation: recipient-side block lists and reports move the bad actor onto shared lists; per-Profile preferences don't protect the sender.
+- **Rule-stacking for abuse.** A bad actor could set `accept_from: anyone` on their Profile and then send aggressive messages once contacted. Mitigation: recipient-side block lists and reports move the bad actor onto shared lists; per-Profile preferences don't protect the sender.
 - **Sybil resistance.** Verification levels (RFC 0003) provide the backbone; cryptographic identity (v0.2) will strengthen it further.
 - **Silencing through over-blocking.** An over-eager default list could silence legitimate minority voices. Mitigation: Kindling default list's governance is designed for transparency and appeals, and implementations are encouraged to combine multiple lists rather than rely on one.
 

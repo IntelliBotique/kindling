@@ -19,7 +19,7 @@ Defines the consent exchange that precedes any Profile's inclusion in a Pool. A 
 
 ## Motivation
 
-Silent inclusion — the operator adding you to a directory without asking — is the single most common trust failure of existing matchmaking software. If Kindling's consent model has any ambiguity, the protocol's legitimacy collapses. The handshake has to be unambiguous, auditable, and withdrawable.
+Silent inclusion (the operator adding you to a directory without asking) is the single most common trust failure of existing matchmaking software. If Kindling's consent model has any ambiguity, the protocol's legitimacy collapses. The handshake has to be unambiguous, auditable, and withdrawable.
 
 Auto-accept exists because active members in multiple Pools hit friction if every handshake requires manual action. The design constraints are: explicit opt-in, notification on every event (no silent acceptance), retroactive revocation, and a hard cap so auto-accept doesn't become a spam vector.
 
@@ -31,13 +31,13 @@ See `spec/SPEC.md` §5. Normative schema: `schemas/handshake_message.schema.json
 
 Key points:
 
-- **Flow** (§5.2): submit → pre-fetch contact → send handshake → one-click accept or decline → inclusion on accept; expiry at 14 days (configurable).
+- **Flow** (§5.2): submit → pre-fetch contact → send handshake → the owner opens the accept or decline link, which shows a confirmation step → the owner confirms → inclusion on accept; expiry at 14 days, or the manifest's `handshake_window_days`. Since v0.1.1 a link alone records nothing: email security scanners open every link, so only an explicit action on the confirmation step (a POST) counts.
 - **Decline is sticky.** A declined URL cannot be re-submitted by the same Curator without owner permission.
 - **Withdrawal** (§5.3): always available through the messaging channel; processed within 60 seconds.
 - **Stricter consent models** (§5.4): Pools may add pre-handshake steps but MUST NOT remove decline or withdrawal.
 - **Auto-accept** (§5.5): opt-in, 5-rule cap, notification per event required, retroactive revocation.
 
-The `consent_proof` embedded in each Pool entry is the audit artifact. It references the specific handshake response (by ID, timestamp, and signature if applicable) that authorized the inclusion.
+The `consent_proof` embedded in each Pool entry is the audit artifact. It references the specific handshake response (by ID and timestamp) that authorized the inclusion. Signatures on consent proofs arrive with cryptographic identity (planned for v0.2); the schema will gain an optional `signature` object on `consent_proof` then. (Corrected in v0.1.1: earlier text said the v0.1 schema had a signature.)
 
 ---
 
@@ -45,7 +45,7 @@ The `consent_proof` embedded in each Pool entry is the audit artifact. It refere
 
 - **Pre-fetching a contact method leaks signal to the Profile's host.** Any submission generates a GET to the source URL. Mitigation: pre-fetch is a normal HTTP request, indistinguishable from a regular visitor.
 - **Handshake emails could be caught by spam filters at scale.** Mitigated by using a deliverability-focused transactional email service for the reference implementation and by warming the sending domain before launch.
-- **Auto-accept, even with caps, is a potential abuse vector.** A coordinated Curator group could craft Pool submissions designed to match an owner's auto-accept rules and pull them into unintended contexts. Mitigation: the notification-per-event requirement and retroactive revocation make such abuse visible and reversible.
+- **Auto-accept, even with caps, is a potential abuse vector.** A coordinated Curator group could craft Pool submissions designed to meet an owner's auto-accept rules and pull them into unintended contexts. Mitigation: the notification-per-event requirement and retroactive revocation make such abuse visible and reversible.
 - **Decline-is-sticky is asymmetric.** A Curator who declines a submission can't be forced to re-consider, which is intentional but occasionally frustrating for genuine misunderstandings.
 
 ---
@@ -61,7 +61,7 @@ The `consent_proof` embedded in each Pool entry is the audit artifact. It refere
 ## Unresolved questions
 
 - **Pre-fetch contact discovery for Profiles that deliberately obscure their contact.** If a Profile doesn't declare an email or OAuth identifier, the Curator has no channel for the handshake. v0.1 guidance: Curator asks the owner out-of-band. Protocol-level support for anonymous handshake bootstrap is open.
-- **Consent proof signature format.** v0.1 schema includes a `signature` field but doesn't constrain the scheme. Future RFC will define.
+- **Consent proof signature format.** v0.1 consent proofs carry no signature. The cryptographic identity RFC planned for v0.2 will define one, and the schema will add an optional `signature` object to `consent_proof` then.
 
 ---
 
@@ -81,8 +81,8 @@ v0.1 launch. The reference handshake server ships with email verification and si
 
 ## Reference implementations
 
-- `tools/handshake/` — reference handshake server implementing the full flow.
-- Mycelial v1 — first production-scale exercise of the handshake against real Grove inhabitants.
+- `tools/handshake/`: reference handshake server implementing the full flow.
+- Mycelial v1: first production-scale exercise of the handshake against real Grove inhabitants.
 
 ---
 
@@ -99,11 +99,11 @@ v0.1 launch. The reference handshake server ships with email verification and si
 
 - **Phishing.** Handshake emails look transactional and could be spoofed. Mitigation: DKIM / SPF / DMARC on the sending domain, a verification link that routes through the Pool's canonical domain, and UX copy that tells users to verify the Pool URL before accepting.
 - **Handshake-as-spam.** A bad Curator could submit arbitrary URLs to send nuisance handshake emails. Mitigation: rate limits on the handshake sender, block-list inclusion for repeat offenders, and curator identity verification requirements for publishing to the public registry.
-- **Proof forgery.** A Pool could fabricate `consent_proof` references. Mitigation: signatures are supported at the schema level; conforming validators verify signatures where present.
+- **Proof forgery.** A Pool could fabricate `consent_proof` references. Mitigation in v0.1: the owner can see and withdraw from any Pool that lists them (§5.3), and block lists can name a Pool host that fabricates proofs (§7.3). Signed proofs arrive with cryptographic identity in v0.2.
 - **Decline leakage.** A Curator learning that a person declined a Pool could use that signal adversarially. Mitigation: decline is recorded locally to the Pool; it is not broadcast to third parties.
 
 ---
 
 ## Appendix: Notes for reviewers
 
-Consent is the load-bearing guarantee of the entire protocol. Reviewers with background in identity, GDPR / CCPA compliance, or dating-app consent failure modes are especially welcome to push on edge cases.
+Consent is the load-bearing promise of the entire protocol. Reviewers with background in identity, GDPR / CCPA compliance, or dating-app consent failure modes are especially welcome to push on edge cases.

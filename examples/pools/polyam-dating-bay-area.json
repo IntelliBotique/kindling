@@ -33,7 +33,7 @@
   "updated_at": "2026-04-22T14:12:00Z",
   "entries": [
     {
-      "profile_url": "https://jordan.dev/me",
+      "profile_url": "https://jordan.example/me",
       "verification_level": "oauth",
       "consent_proof": {
         "handshake_id": "11111111-2222-3333-4444-555555555555",

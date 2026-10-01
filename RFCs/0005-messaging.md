@@ -19,7 +19,7 @@ Defines the minimal native messaging contract. Transport in v0.1 is structured e
 
 ## Motivation
 
-Messaging is the only part of the protocol that has to happen in both directions across operator boundaries: the handshake is a message, the first contact between two people is a message, and withdrawal is a message. We had two options — ship a new federation now, or borrow one.
+Messaging is the only part of the protocol that has to happen in both directions across operator boundaries: the handshake is a message, the first contact between two people is a message, and withdrawal is a message. We had two options: ship a new federation now, or borrow one.
 
 Email wins on three grounds:
 
@@ -27,7 +27,7 @@ Email wins on three grounds:
 2. **Inherits decades of spam filtering.** Gmail, Fastmail, Proton, and the rest have spent twenty years on deliverability, classification, and anti-abuse. Starting over is wasteful.
 3. **Everyone already has email.** No new inbox to host, no new account to create.
 
-The trade-off — end users see their conversations rendered as Kindling threads but the bytes on the wire are email — is acceptable for v0.1 and explicitly time-bound: federated transport is on the v0.3 roadmap.
+The trade-off (end users see their conversations rendered as Kindling threads, but the bytes on the wire are email) is acceptable for v0.1 and explicitly time-bound: federated transport is on the v0.3 roadmap.
 
 ---
 
@@ -38,7 +38,7 @@ See `spec/SPEC.md` §6. Normative schema: `schemas/kindling_message.schema.json`
 Key points:
 
 - **Transport.** Structured email; Kindling metadata lives in custom headers. A compliant UI MUST be able to render Kindling messages natively; end users MAY never see the underlying email.
-- **Envelope** (§6.2): sender identity, recipient identity, message type, body, `pool_ref`.
+- **Envelope** (§6.2): sender identity, recipient identity, message type, body, `via_pool` (named `pool_ref` before v0.1.1).
 - **Message types** (§6.3): `handshake-request`, `handshake-response`, `intro`, `reply`.
 - **Forward compatibility** (§6.4): future versions may define richer transports via the envelope's `transport` field; email remains a fallback through v1.x.
 
@@ -54,10 +54,10 @@ Key points:
 
 ## Alternatives
 
-- **Matrix from day one.** Rejected for v0.1. Strong technical match but heavier operational footprint and smaller installed base than email. Revisited in v0.3+.
+- **Matrix from day one.** Rejected for v0.1. Strong technical fit but heavier operational footprint and smaller installed base than email. Revisited in v0.3+.
 - **AT Protocol DMs.** Rejected for v0.1. Still maturing in 2026; tying Kindling's launch to AT Protocol's timeline adds uncertainty.
 - **Custom federation (ActivityPub-style).** Rejected. Adds a federation operations burden that kills implementer adoption.
-- **Web-only messaging through a Kindling-hosted endpoint.** Rejected — contradicts the "no operator in the middle" property.
+- **Web-only messaging through a Kindling-hosted endpoint.** Rejected: it contradicts the "no operator in the middle" property.
 
 ---
 
@@ -86,8 +86,8 @@ v0.1 launch. The reference handshake and messaging code uses `nodemailer` with a
 
 ## Reference implementations
 
-- `tools/handshake/` — reference message sender for handshake and consent flows.
-- Mycelial v1 — uses Mycelial's existing email transport; UI renders threads natively so end users don't see the email substrate.
+- `tools/handshake/`: reference message sender for handshake and consent flows.
+- Mycelial v1: uses Mycelial's existing email transport; UI renders threads natively so end users don't see the email substrate.
 
 ---
 

@@ -22,7 +22,7 @@ The reference implementation is small enough to run on a single VPS or container
 2. Install Node 20 and a process supervisor (systemd, pm2, or Docker).
 3. Clone this repo, `npm install`, and run `node registry/server.js` under the supervisor.
 4. Front it with Caddy or nginx for TLS termination.
-5. Configure DNS for `registry.kindling.dev` (or your chosen domain).
+5. Configure DNS for `registry.kindling.foundation` (or your chosen domain).
 
 ### Container deployment
 

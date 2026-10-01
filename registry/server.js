@@ -85,12 +85,12 @@ function renderLayout(title, body) {
     <nav>
       <a href="/">Pools</a>
       <a href="/submit">Submit</a>
-      <a href="https://kindling.dev">About</a>
+      <a href="https://kindling.foundation/">About</a>
     </nav>
   </header>
   <main>${body}</main>
   <footer>
-    <p>Kindling is an open protocol for human connection. <a href="https://github.com/IntelliBotique/kindling">GitHub</a> · <a href="https://kindling.dev">kindling.dev</a></p>
+    <p>Kindling is an open protocol for human connection. <a href="https://github.com/IntelliBotique/kindling">GitHub</a> · <a href="https://kindling.foundation/">kindling.foundation</a></p>
   </footer>
 </body>
 </html>`;
@@ -167,7 +167,7 @@ app.get('/submit', (_req, res) => {
     </label>
     <button type="submit">Validate and submit</button>
   </form>
-  <p style="margin-top:1.5rem;color:#6b6b6b;font-size:.9rem;">Submission triggers schema validation. If the manifest is valid and you're the curator, the Pool is listed publicly. Removal requests go to <a href="mailto:registry@kindling.dev">registry@kindling.dev</a>.</p>`;
+  <p style="margin-top:1.5rem;color:#6b6b6b;font-size:.9rem;">Submission triggers schema validation. If the manifest is valid and you're the curator, the Pool is listed publicly. Removal requests go to <a href="mailto:registry@kindling.foundation">registry@kindling.foundation</a>.</p>`;
   res.send(renderLayout('Submit', body));
 });
 
@@ -188,7 +188,7 @@ app.post('/submit', async (req, res) => {
     }
     const slug = manifest.id ? slugify(manifest.id) : slugify(manifest.name);
     if (existsSync(poolPath(slug))) {
-      return res.status(409).send(renderLayout('Submit', `<h1>Submission failed</h1><p class="error">A Pool with id "${slug}" is already registered. Contact registry@kindling.dev to update.</p>`));
+      return res.status(409).send(renderLayout('Submit', `<h1>Submission failed</h1><p class="error">A Pool with id "${slug}" is already registered. Contact registry@kindling.foundation to update.</p>`));
     }
     const stored = {
       ...manifest,

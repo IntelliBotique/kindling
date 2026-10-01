@@ -10,17 +10,22 @@
  * minimal fields. Production implementations should replace `aiExtract` with
  * a real LLM call.
  *
+ * It records where each field came from in extraction_source (SPEC §2.3):
+ * "h-card" for values read from h-card markup, "inferred" for anything else.
+ * It records a kindling-noindex directive as kindling_noindex: true (SPEC §2.7),
+ * so a Pool can see it and refuse the submission.
+ *
  * Usage:
  *   kindling-parse <profile-url>
  */
 
-import { readFileSync, existsSync } from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import { readFileSync, existsSync, realpathSync } from 'node:fs';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 
-const PARSER_VERSION = 'kindling-parser-reference/0.1.0';
+const PARSER_VERSION = 'kindling-parser-reference/0.1.1';
 
 async function fetchHtml(source) {
   if (existsSync(source)) {
@@ -31,7 +36,7 @@ async function fetchHtml(source) {
   return { html: await res.text(), url: source };
 }
 
-function extractHcard($, baseUrl) {
+export function extractHcard($, baseUrl) {
   const card = $('.h-card').first();
   if (!card.length) return null;
 
@@ -60,7 +65,8 @@ function extractHcard($, baseUrl) {
   if (photoHints.length) result.photo_hints = photoHints;
 
   const contact = [];
-  const email = card.find('.u-email').first().attr('href') || card.find('.u-email').first().text().trim();
+  const email =
+    card.find('.u-email').first().attr('href') || card.find('.u-email').first().text().trim();
   if (email) {
     const value = email.replace(/^mailto:/, '');
     contact.push({ type: 'email', value });
@@ -74,7 +80,7 @@ function extractHcard($, baseUrl) {
   return result;
 }
 
-function aiExtract($, baseUrl) {
+export function aiExtract($, baseUrl) {
   // STUB. A production implementation replaces this with an LLM call that
   // takes the page text and returns a structured parsed_profile. Here, we
   // produce a minimal valid skeleton by reading the <title> and meta tags.
@@ -95,7 +101,36 @@ function aiExtract($, baseUrl) {
   return result;
 }
 
-function buildParsedProfile(url, fields) {
+/** A kindling-noindex directive: an h-card class, a meta tag, or a robots-style signal (SPEC §2.7). */
+export function hasNoindex($) {
+  if ($('.kindling-noindex').length) return true;
+  const kindling = ($('meta[name="kindling"]').attr('content') || '').toLowerCase();
+  const robots = ($('meta[name="robots"]').attr('content') || '').toLowerCase();
+  return /\bnoindex\b/.test(kindling) || /\bkindling-noindex\b/.test(robots);
+}
+
+const PROVENANCE_FIELDS = [
+  'display_name',
+  'pronouns',
+  'location',
+  'photo_hints',
+  'about',
+  'contact_methods',
+  'intent_tags',
+];
+
+/** extraction_source for the fields that are present: every one of them came from the same source. */
+export function provenance(fields, source) {
+  const out = {};
+  for (const key of PROVENANCE_FIELDS) {
+    const v = fields[key];
+    if (v !== undefined && !(Array.isArray(v) && v.length === 0)) out[key] = source;
+  }
+  return out;
+}
+
+export function buildParsedProfile(url, fields, { source = 'h-card', noindex = false } = {}) {
+  const extraction = provenance(fields, source);
   return {
     schema_version: '0.1',
     profile_url: url,
@@ -107,6 +142,8 @@ function buildParsedProfile(url, fields) {
     ...(fields.contact_methods?.length ? { contact_methods: fields.contact_methods } : {}),
     intent_tags: fields.intent_tags || [],
     verification: { level: 'unverified' },
+    ...(noindex ? { kindling_noindex: true } : {}),
+    ...(Object.keys(extraction).length ? { extraction_source: extraction } : {}),
     parsed_at: new Date().toISOString(),
     parser: PARSER_VERSION,
   };
@@ -125,10 +162,12 @@ program
 
       const hcardFields = extractHcard($, url);
       let fields = hcardFields;
+      let origin = 'h-card';
 
       if (!fields && options.ai !== false) {
         process.stderr.write('No h-card found; using AI fallback (stub).\n');
         fields = aiExtract($, url);
+        origin = 'inferred';
       }
 
       if (!fields) {
@@ -136,7 +175,7 @@ program
         process.exit(1);
       }
 
-      const profile = buildParsedProfile(url, fields);
+      const profile = buildParsedProfile(url, fields, { source: origin, noindex: hasNoindex($) });
       console.log(JSON.stringify(profile, null, 2));
     } catch (err) {
       console.error(`Error: ${err.message}`);
@@ -144,4 +183,12 @@ program
     }
   });
 
-program.parse();
+function isMain() {
+  try {
+    return realpathSync(process.argv[1] || '') === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+if (isMain()) program.parse();

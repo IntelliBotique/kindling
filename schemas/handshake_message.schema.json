@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/handshake_message.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/handshake_message.schema.json",
   "title": "HandshakeMessage",
   "description": "A consent handshake exchange between a Pool and a profile owner.",
   "type": "object",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/kindling_message.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/kindling_message.schema.json",
   "title": "KindlingMessage",
   "description": "A native Kindling message envelope. v0.1 transport is structured email under the hood.",
   "type": "object",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/parsed_profile.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/parsed_profile.schema.json",
   "title": "ParsedProfile",
   "description": "The structured representation of a Kindling profile, produced by parsing a freeform profile URL (with h-card baseline plus AI extraction).",
   "type": "object",
@@ -137,7 +137,16 @@
     "kindling_noindex": {
       "type": "boolean",
       "default": false,
-      "description": "If true, this profile asks not to be included in any Pool. Compliant Pools and crawlers respect this."
+      "description": "If true, this profile asks not to be included in any Pool. A Pool entry MUST NOT hold a parsed profile with this set (SPEC §2.7). Parsers record it so a Pool can detect it and refuse."
+    },
+    "extraction_source": {
+      "type": "object",
+      "description": "Where each field's value came from (SPEC §2.3): read from h-card markup, inferred from the rest of the page, or stated by the owner directly. Keys are field names of this document. A parser MUST fill this whenever it infers any field. Added in v0.1.1.",
+      "propertyNames": { "pattern": "^[a-z_]+(\\.[a-z_]+)*$" },
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["h-card", "inferred", "owner-declared"]
+      }
     },
     "parsed_at": {
       "type": "string",

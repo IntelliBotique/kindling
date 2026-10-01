@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/well_known_pool.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/well_known_pool.schema.json",
   "title": "WellKnownKindlingPool",
   "description": "The discovery file published at /.well-known/kindling-pool by any domain hosting a Pool. Crawlers and registries fetch this to find Pools without a central authority.",
   "type": "object",
@@ -21,6 +21,10 @@
           "intent_tags": { "type": "array", "items": { "type": "string" } },
           "visibility": { "type": "string", "enum": ["public", "unlisted", "invite-only"] },
           "status": { "type": "string", "enum": ["active", "dormant", "archived"] },
+          "curator_contact": {
+            "type": "string",
+            "description": "How to reach the Pool's curator, as in its manifest. SHOULD be present (SPEC §10.2). Added in v0.1.1."
+          },
           "geographic_scope": {
             "type": "object",
             "additionalProperties": false,

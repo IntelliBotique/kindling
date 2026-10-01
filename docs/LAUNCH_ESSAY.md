@@ -65,17 +65,17 @@ Profiles live anywhere. Pools organize them. AI agents read across Pools to answ
 
 ## How a connection happens
 
-Sarah keeps a profile on a Notion page. She's open to dating in Los Angeles and to new friends. The page says who she is, has a few photos and a contact email, and carries h-card markup that tells any reader where her name and location are.
+Noor keeps a profile on a Notion page. She's open to dating in Los Angeles and to new friends. The page says who she is, has a few photos and a contact email, and carries h-card markup that tells any reader where her name and location are.
 
-Her friend Mira runs a Pool called "Queer creatives in LA." Mira submits Sarah's URL to the Pool, and Sarah gets a handshake: a structured email with the Pool's name, its charter, its curator, what it's for, and one-click accept or decline. Sarah accepts. Her structured profile is now in Mira's Pool. Had she declined, the decline would be remembered, and Mira couldn't submit her again without her permission.
+Her friend Mira runs a Pool called "Queer creatives in LA." Mira submits Noor's URL to the Pool, and Noor gets a handshake: a structured email with the Pool's name, its charter, its curator, what it's for, and two links, one to accept and one to decline. Either opens a page where she gives her answer. Noor accepts. Her structured profile is now in Mira's Pool. Had she declined, the decline would be remembered, and Mira couldn't submit her again without her permission.
 
-Three weeks later Reza, in Echo Park, asks a Kindling client, "Who in queer creatives LA is up for a hike this weekend?" The client reads the profiles in Mira's Pool, ranks the matches, and shows three people, Sarah among them. Reza opens her Notion page, reads it, and decides to write.
+Three weeks later Reza, in Echo Park, asks a Kindling client, "Who in queer creatives LA is up for a hike this weekend?" The client reads the profiles in Mira's Pool, ranks the matches, and shows three people, Noor among them. Reza opens her Notion page, reads it, and decides to write.
 
-His message travels through Kindling's messaging contract, which in v0.1 is structured email underneath. Sarah's email provider handles spam the way it always has. Whatever client each of them uses shows the conversation as an ordinary thread. They figure out a hike.
+His message travels through Kindling's messaging contract, which in v0.1 is structured email underneath. Noor's email provider handles spam the way it always has. Whatever client each of them uses shows the conversation as an ordinary thread. They figure out a hike.
 
 Between them there's no central app, no swipe screen and no premium tier. Mira runs the Pool because she cares about her community. The protocol runs on public agreements.
 
-If Reza later wants a different interface, a list or a chat-driven search, he switches clients. Sarah's profile and Mira's Pool behave the same way in every one. That's what a protocol buys you.
+If Reza later wants a different interface, a list or a chat-driven search, he switches clients. Noor's profile and Mira's Pool behave the same way in every one. That's what a protocol buys you.
 
 ## Why publish the spec first
 

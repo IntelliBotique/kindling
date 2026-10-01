@@ -74,7 +74,7 @@ We don't claim jurisdiction over your unrelated public life. We do reserve the r
 
 If you experience or witness unacceptable behavior, report it to the **Code of Conduct Committee** at:
 
-**conduct@kindling.dev**
+**conduct@kindling.foundation**
 
 All reports are reviewed by the committee. Reports are confidential to the committee unless the reporter explicitly authorizes broader disclosure. The committee will not retaliate against anyone who makes a report in good faith, and will not share the reporter's identity with the reported party without consent.
 
@@ -141,7 +141,7 @@ Strong disagreement is not a violation of this Code of Conduct. People will disa
 
 This Code of Conduct exists to address harm, not to suppress disagreement. The committee draws the line where behavior moves from "I think you're wrong about this" to "I am acting against your ability to participate." That distinction matters.
 
-If you're unsure whether something crosses the line, you can email `conduct@kindling.dev` for a private read before escalating publicly.
+If you're unsure whether something crosses the line, you can email `conduct@kindling.foundation` for a private read before escalating publicly.
 
 ---
 
@@ -159,7 +159,7 @@ This Code of Conduct draws on the [Contributor Covenant 2.1](https://www.contrib
 - **Name 2**, role / affiliation, contact handle
 - **Name 3**, role / affiliation, contact handle
 
-For Code of Conduct concerns: `conduct@kindling.dev`
+For Code of Conduct concerns: `conduct@kindling.foundation`
 
 ---
 

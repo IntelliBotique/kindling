@@ -24,13 +24,13 @@ Identity on Kindling serves two needs that don't align perfectly:
 1. **Prove ownership of the Profile URL.** Otherwise anyone can submit anyone's page and the consent handshake is meaningless.
 2. **Be usable by a non-technical person.** A protocol that requires keypair management excludes most of the people the protocol is for.
 
-A layered model solves both. Email verification is the universal floor — anyone with an email address can reach it. OAuth is a familiar shortcut for the 80% of users who already have Google or Apple. Curator vouching handles the tight-knit-community case where asking a friend to click a verification link is silly.
+A layered model solves both. Email verification is the universal floor: anyone with an email address can reach it. OAuth is a familiar shortcut for the 80% of users who already have Google or Apple. Curator vouching handles the tight-knit-community case where asking a friend to click a verification link is silly.
 
 ---
 
 ## Detailed design
 
-See `spec/SPEC.md` §4. Four verification levels are defined: `email-verified`, `oauth-verified`, `curator-vouched`, `unverified`.
+See `spec/SPEC.md` §4. Four verification levels are defined. On the wire they are `email`, `oauth`, `curator-vouched` and `unverified`, displayed as email-verified, oauth-verified, curator-vouched and unverified (corrected in v0.1.1; §4.5 has the table).
 
 Key points:
 
@@ -53,7 +53,7 @@ Key points:
 
 - **Require cryptographic identity from v0.1.** Rejected. UX burden excludes non-technical users; the protocol would launch with the wrong user base.
 - **Use only OAuth.** Rejected. Excludes people who don't use supported providers (enterprise users, privacy-conscious users, users outside the US / EU tech bubble).
-- **Self-attestation (no verification).** Rejected. Breaks the handshake's consent guarantee — anyone could add anyone.
+- **Self-attestation (no verification).** Rejected. Breaks the handshake's consent promise: anyone could add anyone.
 
 ---
 
@@ -81,7 +81,7 @@ v0.1 launch. All three verification methods are supported at launch. The referen
 
 ## Reference implementations
 
-- `tools/handshake/` — reference handshake server, includes email verification.
+- `tools/handshake/`: reference handshake server, includes email verification.
 - Mycelial v1 (T+120) will be the first large-scale exercise of all three verification levels.
 
 ---

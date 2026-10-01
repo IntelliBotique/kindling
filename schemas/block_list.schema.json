@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kindling.dev/schemas/block_list.schema.json",
+  "$id": "https://protocol.kindling.foundation/schemas/block_list.schema.json",
   "title": "KindlingBlockList",
   "description": "A signed shared block list. Implementations subscribe to one or more lists and filter senders / curators / Pools accordingly.",
   "type": "object",

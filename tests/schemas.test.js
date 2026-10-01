@@ -106,14 +106,14 @@ describe('Inline fixtures validate for schemas without example files', () => {
   it('parsed_profile: minimal valid shape', () => {
     const data = {
       schema_version: '0.1',
-      profile_url: 'https://sarah.example.com/about',
-      display_name: 'Sarah',
+      profile_url: 'https://noor.example.com/about',
+      display_name: 'Noor',
       parsed_at: '2026-04-22T09:30:00Z',
       pronouns: 'she/her',
       location: { city: 'Oakland', region: 'California' },
       intent_tags: ['friendship', 'hiking'],
       about: 'Designer, hiker, reader. Looking for people who walk slowly.',
-      contact_methods: [{ type: 'email', value: 'sarah@example.com' }],
+      contact_methods: [{ type: 'email', value: 'noor@example.com' }],
       verification: { level: 'email', verified_at: '2026-04-22T09:00:00Z' },
       messaging_preferences: { accept_from: 'verified', no_cold_messages: false },
     };
@@ -136,7 +136,7 @@ describe('Inline fixtures validate for schemas without example files', () => {
         intent_tags: ['friendship', 'queer'],
         visibility: 'public',
       },
-      profile_url: 'https://sarah.example.com/about',
+      profile_url: 'https://noor.example.com/about',
       sent_at: '2026-04-22T09:00:00Z',
       expires_at: '2026-05-06T09:00:00Z',
       accept_url: 'https://example.com/handshake/accept/abc',
@@ -154,7 +154,7 @@ describe('Inline fixtures validate for schemas without example files', () => {
       handshake_id: 'f4c1b2d3-7e8a-4b5c-9d1e-2f3a4b5c6d7e',
       decision: 'accept',
       responded_at: '2026-04-22T10:05:00Z',
-      responder_identity: 'sarah@example.com',
+      responder_identity: 'noor@example.com',
     };
     const ok = v['handshake_message.schema.json'](data);
     if (!ok) console.error(v['handshake_message.schema.json'].errors);
@@ -167,8 +167,8 @@ describe('Inline fixtures validate for schemas without example files', () => {
       message_id: 'msg-0001',
       type: 'intro',
       sender: {
-        identity: 'sarah@example.com',
-        display_name: 'Sarah',
+        identity: 'noor@example.com',
+        display_name: 'Noor',
         verification_level: 'email',
       },
       recipient: { identity: 'reza@example.com' },
@@ -232,8 +232,8 @@ describe('Negative tests reject invalid documents', () => {
   it('parsed_profile rejects more than 5 auto_accept_rules', () => {
     const data = {
       schema_version: '0.1',
-      profile_url: 'https://sarah.example.com/about',
-      display_name: 'Sarah',
+      profile_url: 'https://noor.example.com/about',
+      display_name: 'Noor',
       parsed_at: '2026-04-22T09:30:00Z',
       messaging_preferences: {
         auto_accept_rules: Array(6).fill({ intent_tags: ['friendship'] }),

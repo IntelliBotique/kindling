@@ -60,7 +60,7 @@ npx kindling-validate https://example.com/pools/queer-creatives-la
 **Parse a profile URL:**
 
 ```bash
-npx kindling-parse https://sarah.example.com
+npx kindling-parse https://noor.example.com
 ```
 
 **Run the starter discovery agent against a Pool:**
@@ -91,7 +91,7 @@ Kindling is two stacked open standards.
 
 **Identity is layered.** Email verification is the baseline. OAuth via existing providers is a familiar shortcut. Curator vouching works inside tight Pools where universal verification is silly. Verification level is always visible to askers.
 
-**Discovery is decentralized.** Pool URLs travel socially. Pools self-publish to a `.well-known/kindling-pool` discovery file so any crawler can find them. Kindling runs a public registry of opt-in Pools at [registry.kindling.dev](https://registry.kindling.dev). Anyone can run their own registry.
+**Discovery is decentralized.** Pool URLs travel socially. Pools self-publish to a `.well-known/kindling-pool` discovery file so any crawler can find them. Kindling keeps a public registry of opt-in Pools in [`registry-data/`](registry-data/). Anyone can run their own registry.
 
 **Spam filtering is a three-layer model:** identity-based gating, per-profile preferences, and shared block lists.
 
@@ -152,7 +152,7 @@ The fire starts here.
 - **Launch essay:** [`docs/LAUNCH_ESSAY.md`](docs/LAUNCH_ESSAY.md)
 - **Framework essay:** [`docs/FRAMEWORK.md`](docs/FRAMEWORK.md)
 - **First reference implementation (Mycelial):** [mycelial.help](https://mycelial.help)
-- **Maintainer contact:** `maintainers@kindling.dev`
-- **Code of Conduct concerns:** `conduct@kindling.dev`
+- **Maintainer contact:** `maintainers@kindling.foundation`
+- **Code of Conduct concerns:** `conduct@kindling.foundation`
 
 The public-facing site (`kindling.tranquiltech.com`) and the public Pool registry (`registry.kindling.tranquiltech.com`) come online with the v0.1.1 public release; the README will link them once they resolve.

@@ -27,5 +27,5 @@ Every stored Pool is validated against `schemas/pool_manifest.schema.json` befor
 ## Operations
 
 - **Add a Pool:** `POST /submit` on the running registry server. See `registry/README.md`.
-- **Remove a Pool:** delete the file (or route through `registry@kindling.dev` for curator-initiated removal in the hosted registry).
+- **Remove a Pool:** delete the file (or route through `registry@kindling.foundation` for curator-initiated removal in the hosted registry).
 - **Re-validate all Pools:** run the `validator` CLI against every file (script TBD; see issue tracker).

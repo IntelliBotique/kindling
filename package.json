@@ -1,10 +1,10 @@
 {
   "name": "kindling",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Kindling: an open protocol for human connection. Reference tooling and public registry.",
   "license": "Apache-2.0",
   "author": "TranquilTech",
-  "homepage": "https://kindling.dev",
+  "homepage": "https://protocol.kindling.foundation",
   "type": "module",
   "repository": {
     "type": "git",

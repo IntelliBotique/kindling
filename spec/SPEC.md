@@ -1,7 +1,7 @@
 # Kindling Protocol Specification
 
-**Version:** 0.1
-**Status:** Stable for v0.1. Changes before v0.2 will land as opt-in additions or clearly-marked deprecations.
+**Version:** 0.1.1 (1 October 2026)
+**Status:** Stable for v0.1. Changes before v0.2 will land as opt-in additions or clearly-marked deprecations. v0.1.1 is an errata release: it makes the text agree with the schemas, adds the optional fields that agreement needs, and adds a confirmation step to the handshake (§5.2). Sections changed in v0.1.1 end with a note saying what changed; CHANGELOG.md has the full list.
 **License:** CC BY 4.0 (this document). Apache 2.0 (reference tooling).
 
 This document is the canonical, numbered specification of the Kindling protocol. It is derived from the longer-form framework essay at [`docs/FRAMEWORK.md`](../docs/FRAMEWORK.md) and exists so implementers have a stable reference for each requirement. Section numbers are stable across v0.1.x point releases and will only change at a major version bump. RFCs reference sections by number.
@@ -47,7 +47,9 @@ A Profile owner SHOULD include IndieWeb `h-card` microformat markup on the sourc
 
 ### 2.3 AI-assisted extraction
 
-Where h-card markup is absent, a parser MAY infer fields from prose, layout, and embedded media. Implementations MUST record which fields were h-card-derived and which were inferred. The parsed profile's `extraction_source` field (see `schemas/parsed_profile.schema.json`) carries this provenance.
+Where h-card markup is absent, a parser MAY infer fields from prose, layout, and embedded media. Implementations MUST record which fields were h-card-derived and which were inferred. The parsed profile's optional `extraction_source` object (see `schemas/parsed_profile.schema.json`) carries this provenance: it maps a field name to `h-card` (read from h-card markup), `inferred` (extracted from anything else) or `owner-declared` (stated by the owner directly to the Pool or parser). A parser MUST fill `extraction_source` whenever it infers any field.
+
+_Changed in v0.1.1:_ `extraction_source` is now in the schema, with its three values.
 
 ### 2.4 Extracted fields
 
@@ -60,8 +62,11 @@ A parsed Profile MUST include, where discoverable:
 - `intent_tags` (what the person is open to)
 - `about` (free-text "about me" in compressed form)
 - `contact_methods` (declared email, social handles, scheduling links)
-- `verification_level` (§4.5)
+- `verification.level` (§4.5)
 - `messaging_preferences` (§7.2)
+- `extraction_source` (§2.3), whenever any field was inferred
+
+_Changed in v0.1.1:_ the verification level sits at `verification.level`, as in the schema, not at `verification_level`.
 
 ### 2.5 Photo handling
 
@@ -73,7 +78,11 @@ Re-parsing is trigger-based. A Pool MUST re-parse a Profile when the owner pushe
 
 ### 2.7 Noindex directive
 
-A Profile MAY include a `kindling-noindex` directive (as an h-card class, meta tag, or robots-style signal). Compliant Pools and crawlers MUST NOT include such a Profile in any Pool, registry, or discovery surface.
+A Profile MAY include a `kindling-noindex` directive (as an h-card class, meta tag, or robots-style signal). Compliant Pools and crawlers MUST NOT include such a Profile in any Pool, registry, or discovery surface. A parsed profile with `kindling_noindex: true` MUST NOT appear in any Pool entry. Parsers MUST still record the field when they find the directive, so that a Pool can detect it and refuse the submission.
+
+Noindex is not a privacy setting inside a Pool. Privacy inside a Pool comes from the Pool's `visibility` (§3.2), and, from v0.2, from profile visibility.
+
+_Changed in v0.1.1:_ the rule holds for Pool entries too, and the schema enforces it.
 
 ---
 
@@ -88,24 +97,36 @@ A Pool is a manifest plus a list of Profile entries. A Pool MUST be retrievable 
 - `name`
 - `curator` (one or more verified Kindling identities; verification level visible)
 - `intent_tags`
-- `visibility` — one of `public`, `unlisted`, `invite-only`
-- `consent_model` — defaults to `universal-opt-in`; other values: `vouching-required`, `curator-only-adds`
+- `visibility`: one of `public`, `unlisted`, `invite-only`
+- `consent_model`: defaults to `universal-opt-in`; other values: `vouching-required`, `curator-only-adds`
 - `curator_contact`
 - `charter` (free-text description)
+- `entries` (§3.4)
+- `schema_version` (§12.1)
 
 ### 3.3 Optional manifest fields
 
-`geographic_scope`, `governance_rules`, `created_at`, `updated_at`, Pool-level messaging preferences, and block-list subscriptions.
+`id`, `geographic_scope`, `governance_rules`, `handshake_window_days` (§5.2), `status` (§9), `created_at`, `updated_at`, Pool-level messaging preferences (§7.2), and block-list subscriptions.
+
+_Changed in v0.1.1:_ adds `handshake_window_days`, and lists `id` and `status`, which the schema already had.
 
 ### 3.4 Pool entries
 
 Each entry MUST contain:
 
 - `profile_url` (canonical source URL)
+- `consent_proof` (reference to the handshake response authorizing inclusion)
+- `verification_level` (§4.5)
+- `added_at` (when the entry was added)
+
+Once the Profile has been parsed, each entry SHOULD also contain:
+
 - `parsed_profile` (cached JSON sidecar)
 - `parsed_at` (last parse timestamp)
-- `consent_proof` (reference to the handshake response authorizing inclusion)
-- `verification_level`
+
+An entry's `verification_level` is never `unverified`: accepting a handshake verifies the owner's email at minimum (§4.2). An entry MUST NOT hold a parsed profile with `kindling_noindex: true` (§2.7).
+
+_Changed in v0.1.1:_ the text now agrees with the schema. `parsed_profile` and `parsed_at` are SHOULD, not MUST, and `added_at` is required. Validators warn when an entry lacks the two parse fields.
 
 ### 3.5 Coupling
 
@@ -133,7 +154,19 @@ A Curator MAY vouch for a Profile owner inside their own Pool. The identity is l
 
 ### 4.5 Verification levels
 
-Implementations MUST surface one of: `email-verified`, `oauth-verified`, `curator-vouched`, `unverified`. A v1-conforming UI MUST render this alongside every Profile.
+Implementations MUST surface one of the following levels, and a v1-conforming UI MUST render it alongside every Profile. The wire values are the schemas'; the display labels are what earlier drafts of this text called the levels, and what a UI MAY show.
+
+| Wire value        | Display label   | Meaning                                                         |
+| ----------------- | --------------- | --------------------------------------------------------------- |
+| `email`           | email-verified  | The owner proved control of an email address (§4.2).            |
+| `oauth`           | oauth-verified  | The owner signed in with an identity provider (§4.3).           |
+| `curator-vouched` | curator-vouched | A Curator vouched for the owner, inside that Pool only (§4.4).  |
+| `unverified`      | unverified      | No verification yet.                                            |
+| `cryptographic`   | cryptographic   | Reserved for v0.2 (§4.6). v0.1 implementations do not issue it. |
+
+A Curator's level is one of `email`, `oauth` or `cryptographic`. A Pool entry's level is never `unverified` (§3.4).
+
+_Changed in v0.1.1:_ the wire values are the schemas' (`email`, `oauth`), with the old names kept as display labels.
 
 ### 4.6 Future identity (non-normative)
 
@@ -151,10 +184,14 @@ A Profile MUST NOT be added to a Pool without the owner's explicit consent. Sile
 
 1. A Curator submits a Profile URL to a Pool.
 2. The Pool's parser performs a lightweight pre-fetch to find a contact method.
-3. The Pool sends a handshake message conforming to `schemas/handshake_message.schema.json`, containing: Pool name, charter, curator identity, intent tags, visibility, and a one-click accept link + a one-click decline link.
-4. On accept, the Pool parses the page in full, caches the structured Profile, and lists it.
-5. On decline, the URL MUST be recorded as declined for that Pool and MUST NOT be re-submitted by the same Curator without owner permission.
-6. No response within the handshake window (default 14 days, configurable per Pool) causes the submission to expire.
+3. The Pool sends a handshake message conforming to `schemas/handshake_message.schema.json`, containing: Pool name, charter, curator identity, intent tags, visibility, an accept link and a decline link. Each link MUST open a confirmation step that shows the Pool's name, charter, curator and visibility and asks the owner to confirm. Only an explicit action on that step, such as a button that sends a POST request, records a decision. A GET request to either link alone MUST NOT record a decision. The confirmation step SHOULD NOT be cached or indexed.
+4. When the owner confirms acceptance, the Pool parses the page in full, caches the structured Profile, and lists it.
+5. When the owner confirms a decline, the URL MUST be recorded as declined for that Pool and MUST NOT be re-submitted by the same Curator without owner permission.
+6. No response within the handshake window causes the submission to expire. The window is the manifest's `handshake_window_days` (default 14). A request's `expires_at` MUST equal its `sent_at` plus the window.
+
+Why the confirmation step: email security scanners open every link in a message. If opening a link recorded a decision, a scanner could accept a handshake on the owner's behalf, which §5.1 forbids.
+
+_Changed in v0.1.1:_ the links open a confirmation step instead of deciding on their own, and the window has a manifest field.
 
 ### 5.3 Withdrawal
 
@@ -166,13 +203,17 @@ Pools declaring `consent_model: vouching-required` or `consent_model: curator-on
 
 ### 5.5 Auto-accept
 
-A Profile owner MAY declare auto-accept rules in their messaging preferences. An auto-accept rule matches on:
+A Profile owner MAY declare auto-accept rules in their messaging preferences. An auto-accept rule tests three things:
 
-- `intent_tags` (subset match)
-- minimum `curator_verification_level`
-- `visibility` constraint
+- `intent_tags`: every tag in the rule is among the Pool's intent tags
+- `minimum_curator_verification`: the Curator's level is at least this
+- `allowed_visibility`: the Pool's visibility is one of these
 
 Auto-accept defaults to off. A Profile MUST NOT have more than five active auto-accept rules. Every auto-accept event MUST produce a notification to the owner; silent acceptance is forbidden. Any auto-accept MAY be revoked retroactively, removing the Profile from any Pool it was auto-accepted into.
+
+Auto-accept never applies to an invite-only Pool. An invitation to an invite-only Pool is personal, so the owner always answers it; this is why `allowed_visibility` accepts only `public` and `unlisted`.
+
+_Changed in v0.1.1:_ the rule fields carry their schema names, and the invite-only limit is stated.
 
 ---
 
@@ -184,11 +225,18 @@ In v0.1, Kindling messaging is delivered as structured email over standard email
 
 ### 6.2 Message envelope
 
-Messages MUST validate against `schemas/kindling_message.schema.json`. The envelope contains: sender identity, recipient identity, message type, body, and `pool_ref` (the Pool the message was triggered through, where applicable).
+Messages MUST validate against `schemas/kindling_message.schema.json`. The envelope contains: sender identity, recipient identity, message type, body, and `via_pool` (the Pool the message was triggered through, where applicable).
+
+_Changed in v0.1.1:_ the Pool reference is named `via_pool`, as in the schema, not `pool_ref`.
 
 ### 6.3 Message types
 
-`handshake-request`, `handshake-response`, `intro`, `reply`.
+- `handshake-request` and `handshake-response` (§5.2)
+- `intro` and `reply`
+- `withdrawal`: an owner leaving a Pool (§5.3)
+- `system`: a protocol notice from a Pool or an implementation, not from a person. System notices cover dormancy (§9.1), curator transition (§9.3) and auto-accept (§5.5).
+
+_Changed in v0.1.1:_ lists `withdrawal` and `system`, which the schema already allowed.
 
 ### 6.4 Forward compatibility
 
@@ -206,15 +254,26 @@ Messages from senders with stronger verification MUST pass. Messages from unveri
 
 ### 7.2 Layer 2: per-profile preferences
 
-A Profile MAY declare messaging rules. Supported rules include:
+A Profile MAY declare messaging rules in its `messaging_preferences`:
 
-- `open-to-all`
-- `pool-mates-only`
-- `vouched-only`
-- `no-cold-messages` (require confirmed mutual interest)
-- `minimum-sender-verification`
+- `accept_from`: who may write first. One of `anyone`, `verified` (the default), `shared-pool` (people in a Pool with the owner), `vouched` (people a Curator vouched for in that Pool) or `none`.
+- `no_cold_messages`: when true, no first message until both people have confirmed mutual interest.
+
+A Pool MAY set `minimum_sender_verification` in its manifest's `messaging_preferences`. It is a Pool-level default for messages sent through that Pool, and applies unless a member's own rules are stricter.
 
 Implementations MUST honor the declared rules.
+
+Earlier drafts named the rules differently:
+
+| Earlier name                  | v0.1.1                                       |
+| ----------------------------- | -------------------------------------------- |
+| `open-to-all`                 | `accept_from: anyone`                        |
+| `pool-mates-only`             | `accept_from: shared-pool`                   |
+| `vouched-only`                | `accept_from: vouched`                       |
+| `no-cold-messages`            | `no_cold_messages: true`                     |
+| `minimum-sender-verification` | the manifest's `minimum_sender_verification` |
+
+_Changed in v0.1.1:_ the rules carry the schema's names.
 
 ### 7.3 Layer 3: shared block lists
 
@@ -238,7 +297,7 @@ Any domain hosting a Pool SHOULD publish a `.well-known/kindling-pool` document 
 
 ### 8.4 Kindling public registry
 
-The project runs a public registry of opt-in Pools at registry.kindling.dev. Listing is by curator self-submission. The registry is one consumer of the well-known convention; it MUST NOT be the only way a Pool is discoverable.
+The project runs a public registry of opt-in Pools at github.com/IntelliBotique/kindling/tree/main/registry-data. Listing is by curator self-submission. The registry is one consumer of the well-known convention; it MUST NOT be the only way a Pool is discoverable.
 
 ### 8.5 Third-party registries
 
@@ -274,7 +333,9 @@ If the participation window closes without a successful transition, the Pool MUS
 
 ### 10.2 Shape
 
-A JSON document validating against `schemas/well_known_pool.schema.json`. It MUST list, for each Pool on the domain: `name`, `pool_url`, `visibility`, `intent_tags`, `status` (`active`, `dormant`, `archived`), and `curator_contact`.
+A JSON document validating against `schemas/well_known_pool.schema.json`. It MUST list, for each discoverable Pool on the domain, its `manifest_url`, `visibility` and `status` (`active`, `dormant`, `archived`). Each Pool SHOULD also carry `curator_contact`, and MAY carry `name`, `intent_tags`, `geographic_scope` and `last_updated`. The file MAY carry an `operator` object saying who runs it.
+
+_Changed in v0.1.1:_ the text now agrees with the schema (`manifest_url`, not `pool_url`), and the schema gains an optional `curator_contact`.
 
 ### 10.3 Crawler conventions
 
@@ -306,7 +367,9 @@ Validates envelopes against §6.2 schema, surfaces verification level, and appli
 
 ### 12.1 Version field
 
-Every manifest, parsed Profile, handshake message, and native message MUST carry a `kindling_version` field.
+Every manifest, parsed Profile, handshake message, native message, well-known file and block list MUST carry a `schema_version` field. Throughout v0.1.x its value is `"0.1"`: a point release does not change it.
+
+_Changed in v0.1.1:_ the field is named `schema_version`, as in every schema, not `kindling_version`.
 
 ### 12.2 Semver
 
@@ -329,6 +392,6 @@ Deprecations between minor versions MUST be marked in the relevant schema and li
 
 ## Appendix B: Informative references
 
-- IndieWeb h-card specification — https://microformats.org/wiki/h-card
-- RFC 2119 — Key words for use in RFCs to Indicate Requirement Levels
-- Framework essay (longer narrative form) — [`docs/FRAMEWORK.md`](../docs/FRAMEWORK.md)
+- IndieWeb h-card specification: https://microformats.org/wiki/h-card
+- RFC 2119: Key words for use in RFCs to Indicate Requirement Levels
+- Framework essay (longer narrative form): [`docs/FRAMEWORK.md`](../docs/FRAMEWORK.md)

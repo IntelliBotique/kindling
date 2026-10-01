@@ -5,11 +5,15 @@
  * Validates a Kindling Pool manifest, profile, handshake, message, well-known
  * file, or block list against the v0.1 JSON schemas.
  *
+ * It also warns, without failing, where the spec says SHOULD: a Pool entry
+ * without parsed_profile or parsed_at once parsed (SPEC §3.4), and a
+ * well-known entry without curator_contact (SPEC §10.2).
+ *
  * Usage:
  *   kindling-validate <url-or-file> [--type pool|profile|handshake|message|wellknown|blocklist]
  */
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, realpathSync } from 'node:fs';
 import { resolve as resolvePath, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
@@ -51,7 +55,53 @@ async function loadDocument(source) {
   return res.json();
 }
 
-function inferType(doc) {
+/** SHOULD-level findings: reported as warnings, never as failures. */
+export function warningsFor(doc, type) {
+  const out = [];
+  if (type === 'pool') {
+    (doc.entries || []).forEach((entry, i) => {
+      for (const field of ['parsed_profile', 'parsed_at']) {
+        if (!(field in entry)) {
+          out.push(
+            `/entries/${i} has no ${field} (SPEC §3.4: SHOULD be present once the profile is parsed)`,
+          );
+        }
+      }
+    });
+  }
+  if (type === 'wellknown') {
+    (doc.pools || []).forEach((pool, i) => {
+      if (!pool.curator_contact)
+        out.push(`/pools/${i} has no curator_contact (SPEC §10.2: SHOULD)`);
+    });
+  }
+  return out;
+}
+
+/** A plain-language line for a schema error. */
+export function describeError(err) {
+  if (err.keyword === 'not' && /^\/entries\/\d+$/.test(err.instancePath)) {
+    return `${err.instancePath} holds a parsed profile with kindling_noindex: true, which a Pool entry may not (SPEC §2.7)`;
+  }
+  return `${err.instancePath || '/'} ${err.message}`;
+}
+
+/** Validate a document of a known type. Returns { valid, errors, warnings }. */
+export function validateDocument(doc, type) {
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  addFormats(ajv);
+  loadAllSchemas(ajv);
+  const validate = ajv.getSchema(loadSchema(type).$id);
+  if (!validate) throw new Error(`schema for ${type} failed to register`);
+  const valid = validate(doc);
+  return {
+    valid,
+    errors: valid ? [] : (validate.errors || []).map(describeError),
+    warnings: valid ? warningsFor(doc, type) : [],
+  };
+}
+
+export function inferType(doc) {
   if (doc?.entries && doc?.curator) return 'pool';
   if (doc?.profile_url && doc?.display_name) return 'profile';
   if (doc?.type === 'handshake-request' || doc?.type === 'handshake-response') return 'handshake';
@@ -80,26 +130,14 @@ program
         process.exit(2);
       }
 
-      const ajv = new Ajv({ allErrors: true, strict: false });
-      addFormats(ajv);
-      loadAllSchemas(ajv);
-
-      const schema = loadSchema(type);
-      const validate = ajv.getSchema(schema.$id);
-      if (!validate) {
-        console.error(`Error: schema ${schema.$id} failed to register.`);
-        process.exit(2);
-      }
-      const valid = validate(doc);
-
+      const { valid, errors, warnings } = validateDocument(doc, type);
       if (valid) {
         console.log(`OK: ${source} is a valid ${type} document.`);
+        for (const w of warnings) console.warn(`  warning: ${w}`);
         process.exit(0);
       } else {
         console.error(`INVALID: ${source} failed ${type} validation.`);
-        for (const err of validate.errors || []) {
-          console.error(`  - ${err.instancePath || '/'} ${err.message}`);
-        }
+        for (const e of errors) console.error(`  - ${e}`);
         process.exit(1);
       }
     } catch (err) {
@@ -108,4 +146,12 @@ program
     }
   });
 
-program.parse();
+function isMain() {
+  try {
+    return realpathSync(process.argv[1] || '') === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+if (isMain()) program.parse();
