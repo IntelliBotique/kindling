@@ -12,7 +12,7 @@ The Initial Maintainer holds commit rights to the spec, the schemas, the referen
 
 | Name | Role | GitHub | Email | Areas of focus |
 |---|---|---|---|---|
-| **Josh Kessler** | Founder, TranquilTech / Project lead | [@IntelliBotique](https://github.com/IntelliBotique) | `josh@intellibotique.com` | Spec direction, registry, governance |
+| **Josh Wolf** | Founder, TranquilTech / Project lead | [@IntelliBotique](https://github.com/IntelliBotique) | `josh@intellibotique.com` | Spec direction, registry, governance |
 
 Additional Initial Maintainers will be named ahead of the v0.1.1 public release. GOVERNANCE.md describes the role as "a small named group, not the company as an abstraction"; expect two to four named people on the v0.1.1 cut.
 
@@ -22,13 +22,7 @@ Additional Initial Maintainers will be named ahead of the v0.1.1 public release.
 
 Spec Reviewers have merge rights on accepted RFCs and on substantive spec changes. The first cohort was recruited from the IndieWeb community, identity-protocol veterans, and dating-tech builders during the pre-launch period.
 
-| Name | Affiliation | Areas of focus | Joined |
-|---|---|---|---|
-| *[Name]* | *[Affiliation]* | *[e.g., Identity, h-card, IndieAuth]* | 2026-04 |
-| *[Name]* | *[Affiliation]* | *[e.g., Spam / abuse / messaging]* | 2026-04 |
-| *[Name]* | *[Affiliation]* | *[e.g., Pool curation / community ops]* | 2026-04 |
-
-> **Note for Josh:** This list should be populated during the T-30 to T-1 pre-launch period with the spec reviewers who agreed to be named publicly. Aim for 5-8 named reviewers at launch. Reviewers who reviewed under embargo but prefer not to be listed publicly can remain anonymous in the credits but should not be in this file.
+*No Spec Reviewers are named in this file yet. Reviewers are listed here once they agree to be named publicly.*
 
 ---
 
@@ -46,13 +40,7 @@ To become an Implementer Liaison: ship an implementation that passes the Kindlin
 
 The Code of Conduct Committee is composed of three people who are **not** maintainers of the spec or the reference implementation. See `CODE_OF_CONDUCT.md` for the committee's role.
 
-*[Three named committee members to be added before launch. Suggested initial composition: one community organizer with experience moderating online spaces, one identity / safety researcher, one person from the IndieWeb or open-protocol community.]*
-
-| Name | Affiliation | Term ends |
-|---|---|---|
-| *[Name 1]* | *[Affiliation]* | 2028-04 |
-| *[Name 2]* | *[Affiliation]* | 2028-04 |
-| *[Name 3]* | *[Affiliation]* | 2028-04 |
+*No committee members are named in this file yet. Until they are, conduct reports still go to the address below.*
 
 For Code of Conduct concerns: `conduct@kindling.foundation`.
 
