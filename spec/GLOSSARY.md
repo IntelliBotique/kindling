@@ -76,4 +76,4 @@ Defined terms used in the Kindling specification and reference tooling. Capitali
 
 **Withdrawal.** A Profile owner's removal of consent, processed within 60 seconds and available through the messaging channel at any time. Removes the Profile from the Pool.
 
-**Working Group.** The group that will take over Kindling governance by v1.0. Two implementer seats (elected by registered implementations; Mycelial competes for one like any other), one IndieWeb seat, and a small advisory rotation. No implementation holds a reserved seat. Transition begins at v0.2.
+**Working Group.** The group that will take over Kindling governance by v1.0. Two implementer seats (elected by registered implementations; Mycelial competes for one like any other), one IndieWeb seat, one Pool curator seat, and a small advisory rotation. No implementation holds a reserved seat. Transition begins at v0.2.
