@@ -1,6 +1,6 @@
 # Kindling Protocol Specification
 
-**Version:** 0.1.1 (1 October 2026)
+**Version:** 0.1.1 (October 1, 2026)
 **Status:** Stable for v0.1. Changes before v0.2 will land as opt-in additions or clearly-marked deprecations. v0.1.1 is an errata release: it makes the text agree with the schemas, adds the optional fields that agreement needs, and adds a confirmation step to the handshake (§5.2). Sections changed in v0.1.1 end with a note saying what changed; CHANGELOG.md has the full list.
 **License:** CC BY 4.0 (this document). Apache 2.0 (reference tooling).
 
